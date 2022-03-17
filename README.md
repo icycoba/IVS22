@@ -8,10 +8,10 @@ Autori
 ------
 
 Nazev tymu
-- xlogin01 jmeno prijmeni 
-- xlogin02 jmeno prijmeni 
-- xlogin03 jmeno prijmeni 
-- xlogin04 jmeno prijmeni 
+- xhlins01 Martin Hlinský 
+- xdudov02 Petra Dudová 
+- xnekul04 Štěpán Nekula 
+- xkundr07 Jan Kundrata 
 
 Licence
 -------

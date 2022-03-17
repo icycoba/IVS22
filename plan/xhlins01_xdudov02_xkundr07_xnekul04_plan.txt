@@ -1,33 +1,24 @@
-Tento soubor bude obsahovat:
-
--- stanovené termíny,
--- přidělení úkolů na projektu jednotlivým řešitelům,
--- zvolené komunikační kanály pro komunikaci v týmu a stanovená pravidla pro komunikaci (jsou-li nějaká),
--- zvolený systém pro správu verzí a hosting + informaci, jak do repozitáře mohou nahlédnout vyučující/cvičící (viz níže).
-
-Alternativně lze odevzdat archiv xlogin01_xlogin02_xlogin03_xlogin04_plan.zip, který bude obsahovat libovolný počet souborů xlogin01_xlogin02_xlogin03_xlogin04_plan* ("*" zastupuje libovolný počet libovolných znaků, tedy např. ".mpp" či "01.jpg"), přičemž plán zde může být vytvořený v MS Projectu či jiném programu (není-li daný program ve škole dostupný, je nutno odevzdat i exportovanou verzi v PDF či jpg).
-
-
 1. Stanovené termíny
 
 1.1:    Založení komunikačních kanálů, repozitáře, přidělení úkolů členům týmu (14.03.2022)
 1.2:    Seznámení se s verzovacím systémem git (18.03.2022)
-1.3:    Tvorba testů pro matematickou knihovnu (27.03.2022)
-1.4:    Základní matematické operace (+,-,*,/)
-1.5:    Pokročilé matematické operace (faktoriál, umocňování s přirozenými exponenty, obecná odmocnina)
-1.6:    Implementace jedné další funkce (TODO)
-1.7:    Profiling
-1.8:    Návrh a propojení GUI s programovou částí
-1.9:    Tvorba instalačního souboru
-1.10:   Uživatelská dokumentace + návod na (od)instalaci
+1.3:    Tvorba testů pro matematickou knihovnu (03.04.2022)
+1.4:    Základní matematické operace (+,-,*,/) (10.04.2022)
+1.5:    Pokročilé matematické operace (faktoriál, umocňování s přirozenými exponenty, obecná odmocnina) (10.04.2022)
+1.6:    Implementace jedné další funkce (vymyslet jakou) (13.04.2022)
+1.7:    Návrh a propojení GUI s programovou částí (15.04.2022)
+1.8:    Profiling (20.04.2022)
+1.9:    Tvorba instalačního souboru (20.04.2022)
+1.10:	Debugging kalkulačky (24.4.2022)
+1.11:   Uživatelská dokumentace + návod na (od)instalaci (24.4.2022)
+1.12:	Mockup další verze kalkulačky (24.4.2022)
 
 2. Přidělení úkolů na projektu jednotlivým řešitelům
 
-xhlins01: (1.1, 1.2, 1.3)
-xdudov02: (1.2, 1.3)
-xkundr07: (1.2, 1.4)
-xnekul04: (1.2, 1.5)
-
+xhlins01: (1.1, 1.2, 1.3, 1.7, 1.9, 1.10, 1.11)
+xdudov02: (1.2, 1.3, 1.8, 1.10, 1.12)
+xkundr07: (1.2, 1.4, 1.5, 1.6, 1.7)
+xnekul04: (1.2, 1.4, 1.5, 1.6, 1.11)
 
 3. Zvolené komunikační kanály pro komunikaci v týmu
 
