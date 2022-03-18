@@ -16,13 +16,15 @@
 2. Přidělení úkolů na projektu jednotlivým řešitelům
 
 xhlins01: (1.1, 1.2, 1.3, 1.7, 1.9, 1.10, 1.11)
-xdudov02: (1.2, 1.3, 1.8, 1.10, 1.12)
-xkundr07: (1.2, 1.4, 1.5, 1.6, 1.7)
+xdudov02: (1.2, 1.3, 1.4, 1.5, 1.10, 1.12)
+xkundr07: (1.2, 1.6, 1.7, 1.8, 1.10)
 xnekul04: (1.2, 1.4, 1.5, 1.6, 1.11)
 
 3. Zvolené komunikační kanály pro komunikaci v týmu
 
 Jako komunikační kanál budeme používat soukromý server na Discordu, do kterého budou mít přístup všichni členové týmu. V případě nutnosti nebo blížícího se milníku budeme projekt konzultovat v hovoru, v ostatních případech bude možné sledovat buď textové kanály, nebo případně Github repozitář.
+
+V případě, že se jeden z členů přestane (nebo ani nezačne) v projektu angažovat, bude mu práce přidělena dle potřeby a přistupovat se k němu bude tak, jako kdyby diskuzi četl. Pokud člen týmu neudělá svoji část práce, budou mu strženy body. Práci bude možné dodělat podle toho, o jakou se bude jednat část a body můžou být vráceny zpět.
 
 4. Zvolený systém pro správu verzí
 
