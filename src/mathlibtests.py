@@ -30,6 +30,28 @@ class TestBasicMathOperations(unittest.TestCase):
         self.assertEqual(calculator.add(calculator.add(-40)), 80)
         self.assertEqual(calculator.add(calculator.add(-80)), 0)
 
+    def test_add_x(self):
+        pass
+
+    def test_sub_x(self):
+        pass
+
+    def test_mul_x(self):
+        pass
+
+    def test_div_x(self):
+        pass
+
+    def test_pow_x(self):
+        pass
+
+    def test_sqrt_x(self):
+        pass
+
+
+class TestAdvancedMathOperations(unittest.TestCase):
+    pass
+
 
 if __name__ == "__main__":
     unittest.main()

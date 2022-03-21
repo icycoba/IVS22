@@ -62,6 +62,16 @@ class MathOperations:
         """
         pass
 
+    def factorial(self):
+        """
+        Faktorial promenne ans
+
+        ans = ans!
+
+        :return: funkce vraci faktorial hodnoty ans
+        """
+        pass
+
     def pow(self, num):
         """
         Umocneni promenne ans hodnotou num
