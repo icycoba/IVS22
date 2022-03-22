@@ -11,11 +11,19 @@ class MathOperations:
     """Trida slouzici pro praci s matematickou knihovnou"""
 
     def __init__(self, num=0):
-        """Inicializace promenne ans, defaultni hodnota je 0"""
+        """
+        Inicializace promenne ans
+
+        :param num: volitelny parametr; defaultni hodnota je 0
+        """
         self.ans = num
 
     def getvalue(self):
-        """Ziskani hodnoty promenne ans"""
+        """
+        Ziskani hodnoty promenne ans
+
+        :return: funkce vraci hodnotu ans
+        """
         pass
 
     def add(self, num):
