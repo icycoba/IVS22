@@ -185,15 +185,15 @@ class TestBasicMathOperations(unittest.TestCase):
         for key, result in zippedkeys:
             self.assertEqual(calculator.pow(key), result)
 
-    def test_sqrt_1(self):
+    def test_root_1(self):
         results = [0] * len(validkeys)
         zippedkeys = zip(validkeys, results)
         calculator = MathOperations()
         self.assertEqual(calculator.getvalue(), 0)
         for key, result in zippedkeys:
-            self.assertEqual(calculator.sqrt(key), result)
+            self.assertEqual(calculator.root(key), result)
 
-    def test_sqrt_2(self):
+    def test_root_2(self):
         results = [2] * len(validkeysdiv)
         for i, _ in enumerate(validkeysdiv):
             if i == 0:
@@ -204,8 +204,8 @@ class TestBasicMathOperations(unittest.TestCase):
         calculator = MathOperations(2)
         self.assertEqual(calculator.getvalue(), 2)
         for key, result in zippedkeys:
-            self.assertEqual(calculator.sqrt(key), result)
-        self.assertRaises(calculator.sqrt(0), ZeroDivisionError)
+            self.assertEqual(calculator.root(key), result)
+        self.assertRaises(calculator.root(0), ZeroDivisionError)
 
 
 class TestAdvancedMathOperations(unittest.TestCase):

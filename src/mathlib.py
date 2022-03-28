@@ -91,7 +91,7 @@ class MathOperations:
         """
         pass
 
-    def sqrt(self, num):
+    def root(self, num):
         """
         Odmocneni promenne ans hodnotou num
 
