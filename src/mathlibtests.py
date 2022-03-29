@@ -18,17 +18,19 @@ invalidkeys2 = [3j, range(6), frozenset({1, 3, 5}), b"byteString", bytearray(5),
 
 class TestBasicMathOperations(unittest.TestCase):
     def test_init_1(self):
-        MathOperations()
+        calculator = MathOperations()
+        self.assertEqual(calculator.getvalue(), 0)
         for key in validkeys:
-            MathOperations(key)
+            calculator = MathOperations(key)
+            self.assertEqual(calculator.getvalue(), key)
 
     def test_init_2(self):
         for key in invalidkeys:
-            MathOperations(key)
+            self.assertRaises(MathOperations(key), TypeError)
 
     def test_init_3(self):
         for key in invalidkeys2:
-            MathOperations(key)
+            self.assertRaises(MathOperations(key), TypeError)
 
     def test_add_1(self):
         results = [0] * len(validkeys)
