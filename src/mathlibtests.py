@@ -121,7 +121,8 @@ class TestBasicMathOperations(unittest.TestCase):
         self.assertEqual(calculator.getvalue(), 0)
         for key, result in zippedkeys:
             if key == 0:
-                self.assertRaises(ZeroDivisionError, calculator.div(key))
+                with self.assertRaises(ZeroDivisionError):
+                    calculator.div(key)
             else:
                 self.assertEqual(calculator.div(key), result)
 
@@ -137,11 +138,14 @@ class TestBasicMathOperations(unittest.TestCase):
         self.assertEqual(calculator.getvalue(), 1)
         for key, result in zippedkeys:
             if key == 0:
-                self.assertRaises(ZeroDivisionError, calculator.div(key))
+                with self.assertRaises(ZeroDivisionError):
+                    calculator.div(key)
             else:
                 self.assertEqual(calculator.div(key), result)
-        self.assertRaises(ZeroDivisionError, calculator.div(0))
-        self.assertRaises(ZeroDivisionError, calculator.div(-0))
+        with self.assertRaises(ZeroDivisionError):
+            calculator.div(0)
+        with self.assertRaises(ZeroDivisionError):
+            calculator.div(-0)
 
     def test_factorial_1(self):
         calculator = MathOperations()
@@ -166,12 +170,14 @@ class TestBasicMathOperations(unittest.TestCase):
     def test_factorial_5(self):
         calculator = MathOperations(-10)
         self.assertEqual(calculator.getvalue(), -10)
-        self.assertRaises(ValueError, calculator.factorial())
+        with self.assertRaises(ValueError):
+            calculator.factorial()
 
     def test_factorial_6(self):
         calculator = MathOperations(5.28)
         self.assertEqual(calculator.getvalue(), 5.28)
-        self.assertRaises(ValueError, calculator.factorial())
+        with self.assertRaises(ValueError):
+            calculator.factorial()
 
     def test_pow_1(self):
         results = [0] * len(validkeys)
@@ -214,7 +220,8 @@ class TestBasicMathOperations(unittest.TestCase):
         self.assertEqual(calculator.getvalue(), 2)
         for key, result in zippedkeys:
             self.assertEqual(calculator.root(key), result)
-        self.assertRaises(ZeroDivisionError, calculator.root(0))
+        with self.assertRaises(ZeroDivisionError):
+            calculator.root(0)
 
 
 class TestAdvancedMathOperations(unittest.TestCase):
