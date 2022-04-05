@@ -218,7 +218,14 @@ class TestBasicMathOperations(unittest.TestCase):
 
 
 class TestAdvancedMathOperations(unittest.TestCase):
-    pass
+    # ((6+3*9-6)/3)!
+    def test_advanced(self):
+        calculator = MathOperations(3)
+        self.assertEqual(calculator.mul(9), 27)
+        self.assertEqual(calculator.add(6), 33)
+        self.assertEqual(calculator.sub(6), 27)
+        self.assertEqual(calculator.div(3), 9)
+        self.assertEqual(calculator.factorial(), 362880)
 
 
 if __name__ == "__main__":
