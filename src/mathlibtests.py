@@ -218,14 +218,36 @@ class TestBasicMathOperations(unittest.TestCase):
 
 
 class TestAdvancedMathOperations(unittest.TestCase):
-    # ((6+3*9-6)/3)!
+    # ((-5)^2 + 3*7)
     def test_advanced(self):
+        calculator = MathOperations(-5)
+        self.assertEqual(calculator.pow(2), 25)
+        calculator = MathOperations(3)
+        self.assertEqual(calculator.mul(7), 21)
+        self.assertEqual(calculator.add(25), 46)
+
+    # ((6+3*9-6)/3)!
+    def test_advanced_2(self):
         calculator = MathOperations(3)
         self.assertEqual(calculator.mul(9), 27)
         self.assertEqual(calculator.add(6), 33)
         self.assertEqual(calculator.sub(6), 27)
         self.assertEqual(calculator.div(3), 9)
         self.assertEqual(calculator.factorial(), 362880)
+
+    # (-8 + 10*6)/-7
+    def test_advanced_3(self):
+        calculator = MathOperations(10)
+        self.assertEqual(calculator.mul(6), 60)
+        self.assertEqual(calculator.add(-6), 54)
+        self.assertEqual(calculator.div(-7), -6)
+
+    # 0*9!
+    def test_advanced_4(self):
+        calculator = MathOperations(0)
+        self.assertEqual(calculator.mul(9), 0)
+        self.assertEqual(calculator.factorial(), 0)
+
 
 
 if __name__ == "__main__":
