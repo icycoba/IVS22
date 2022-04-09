@@ -6,10 +6,17 @@ Projekt:    IVS #2 - Tvorba kalkulačky
 Popis:      Knihovna pro matematické operace
 """
 
-
+# Calculation accuracy parameters
 ROUNDED_TO = 5
 EPSILON = 0.0000001
+# Exception messages
 EXCEPTION_MESSAGE = 'Undefined operation'
+TYPE_ERROR_MESSAGE = 'TypeError'
+ZERO_DIVISION_ERROR_MESSAGE = 'ZeroDivisionError'
+SQRT_OF_NEGATIVE_ERROR_MESSAGE = 'Square root of negative number error'
+NEGATIVE_FACTORIAL_EXCEPTION_MESSAGE = 'Factorial of negative number'
+NEGATIVE_POWER_EXCEPTION_MESSAGE = 'Negative exponent'
+
 
 def isnum(var):
     """
@@ -37,7 +44,7 @@ class MathOperations:
         :param num: volitelny parametr; defaultni hodnota je 0
         """
         if not(isnum(num)):
-            raise Exception(EXCEPTION_MESSAGE)
+            raise Exception(TYPE_ERROR_MESSAGE)
         self.ans = num
 
     def getvalue(self):
@@ -58,9 +65,10 @@ class MathOperations:
         :return: funkce vraci hodnotu ans po secteni s hodnotou num
         """
         if not(isnum(self.ans) and isnum(num)):
-            raise Exception(EXCEPTION_MESSAGE)
+            raise Exception(TYPE_ERROR_MESSAGE)
     
         self.ans = self.ans+num
+        return self.ans
 
 
     def sub(self, num):
@@ -73,8 +81,9 @@ class MathOperations:
         :return: funkce vraci hodnotu ans po odecteni hodnoty num
         """
         if not(isnum(self.ans) and isnum(num)):
-            raise Exception(EXCEPTION_MESSAGE)
+            raise Exception(TYPE_ERROR_MESSAGE)
         self.ans = self.ans-num
+        return self.ans
 
 
     def mul(self, num):
@@ -87,8 +96,9 @@ class MathOperations:
         :return: funkce vraci hodnotu ans po vynasobeni hodnotou num
         """
         if not(isnum(self.ans) and isnum(num)):
-            raise Exception(EXCEPTION_MESSAGE)
+            raise Exception(TYPE_ERROR_MESSAGE)
         self.ans = self.ans*num
+        return self.ans
 
     def div(self, num):
         """
@@ -100,11 +110,12 @@ class MathOperations:
         :return: funkce vraci hodnotu ans po vydeleni hodnotou num
         """
         if not(isnum(self.ans) and isnum(num)):
-            raise Exception(EXCEPTION_MESSAGE)
+            raise Exception(TYPE_ERROR_MESSAGE)
 
         if num == 0:
-            raise Exception(EXCEPTION_MESSAGE)
+            raise Exception(ZERO_DIVISION_ERROR_MESSAGE)
         self.ans = self.ans/num
+        return self.ans
 
 
     def factorial(self):
@@ -115,8 +126,11 @@ class MathOperations:
 
         :return: funkce vraci faktorial hodnoty ans
         """
-        if (not isinstance(self.ans, int)) or  self.ans<0 : #ERROR if self is nonnatural number
-            raise Exception(EXCEPTION_MESSAGE)
+        if (not isinstance(self.ans, int)):
+            raise Exception(TYPE_ERROR_MESSAGE)
+        if self.ans<0 : #ERROR if self is nonnatural number
+            raise Exception(NEGATIVE_FACTORIAL_EXCEPTION_MESSAGE)
+
         count = self.ans
         total = 1
         while count > 1:
@@ -124,6 +138,7 @@ class MathOperations:
             count = count - 1
 
         self.ans = total
+        return self.ans
 
     def pow(self, num):
         """
@@ -135,16 +150,17 @@ class MathOperations:
         :return: funkce vraci hodnotu ans po umocneni hodnotou num
         """
         if not(isnum(self.ans) and isnum(num)):
-            raise Exception(EXCEPTION_MESSAGE)
+            raise Exception(TYPE_ERROR_MESSAGE)
 
         if num<0: #ERROR if num is nonnatural number
-            raise Exception(EXCEPTION_MESSAGE)
+            raise Exception(NEGATIVE_POWER_EXCEPTION_MESSAGE)
 
         result = 1
         while num > 0:
             result *= self.ans
             num-=1
         self.ans = round(result,ROUNDED_TO)
+        return self.ans
 
 
     def root(self, num):
@@ -157,10 +173,10 @@ class MathOperations:
         :return: funkce vraci hodnotu ans po odmocneni hodnotou num
         """
         if not(isnum(self.ans) and isnum(num)):
-            raise Exception(EXCEPTION_MESSAGE)
+            raise Exception(TYPE_ERROR_MESSAGE)
 
         if num%2 == 0 and self.ans<0:
-            raise Exception(EXCEPTION_MESSAGE)
+            raise Exception(SQRT_OF_NEGATIVE_ERROR_MESSAGE)
 
         tmp = self.ans
         x1 = 0
@@ -172,6 +188,7 @@ class MathOperations:
             x1 = x2
             x2 = (num-1)/num*x1+tmp/(num*pow(tmp,tmp=num-1))
         self.ans = round(x2,ROUNDED_TO)
+        return self.ans
 
 
     def sin(self):
@@ -183,7 +200,7 @@ class MathOperations:
         :return: funkce vraci hodnotu ans po použití funkce sin
         """
         if not(isnum(self.ans)):
-            raise Exception(EXCEPTION_MESSAGE)
+            raise Exception(TYPE_ERROR_MESSAGE)
 
 
         counter = 1
@@ -195,6 +212,7 @@ class MathOperations:
             difference = difference /(-counter+1)/(counter) *self.ans*self.ans
 
         self.ans = round(result,ROUNDED_TO)
+        return self.ans
 
 
 
