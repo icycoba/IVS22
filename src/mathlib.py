@@ -22,6 +22,8 @@ def isnum(var):
     :param var: testovaná proměnná
     :return: boolova hodnota výroku, že proměnná je číslo
     """
+    if isinstance(var,bool):
+        return 0
     if( isinstance(var, int)  or isinstance(var, float)  ):
         return 1
     return 0
