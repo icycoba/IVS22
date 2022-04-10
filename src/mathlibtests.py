@@ -12,6 +12,8 @@ import unittest
 
 validkeys = [1, -1, 3.5, -6.2, 2e5, -6e7, 2e-3, 0, -0, 1+1, 3-5, 1*5, 52/5]
 validkeysdiv = [1, -1, 3.5, -6.2, 2e5, -6e7, 2e-3, 1+1, 3-5, 1*5, 52/5]
+validkeyspow = [1, 5-3, 3, 4, 5, -3+6, 7, 8, 9, 10, 100, 0, 5]
+invalidkeyspow = [1.1, -1, -5.5, 13/3, 4/2, 1/2, 0.00001]
 invalidkeys = ['1', '-1', '0', 'asd', '10asd', True, False, [1, 3, 5], (3, 4, 5), {1, 3, 5}, {"number": 1, "next": 4}]
 invalidkeys2 = [3j, range(6), frozenset({1, 3, 5}), b"byteString", bytearray(5), memoryview(bytes(5))]
 
@@ -103,7 +105,7 @@ class TestBasicMathOperations(unittest.TestCase):
                 results[i] *= restofkeys[i]
             else:
                 results[i] = results[i-1] * restofkeys[i]
-        zippedkeys = zip(validkeys, results)
+        zippedkeys = zip(restofkeys, results)
         calculator = MathOperations(1)
         self.assertEqual(calculator.getvalue(), 1)
         for key, result in zippedkeys:
@@ -180,25 +182,36 @@ class TestBasicMathOperations(unittest.TestCase):
             calculator.factorial()
 
     def test_pow_1(self):
-        results = [0] * len(validkeys)
-        zippedkeys = zip(validkeys, results)
+        results = [0] * len(validkeyspow)
+        for i, _ in enumerate(validkeyspow):
+            if i == 0:
+                results[i] = results[i] ** validkeyspow[i]
+            else:
+                results[i] = results[i-1] ** validkeyspow[i]
+        zippedkeys = zip(validkeyspow, results)
         calculator = MathOperations()
         self.assertEqual(calculator.getvalue(), 0)
         for key, result in zippedkeys:
             self.assertEqual(calculator.pow(key), result)
 
     def test_pow_2(self):
-        results = [2] * len(validkeys)
-        for i, _ in enumerate(validkeys):
+        results = [2] * len(validkeyspow)
+        for i, _ in enumerate(validkeyspow):
             if i == 0:
-                results[i] = results[i] ** validkeys[i]
+                results[i] = results[i] ** validkeyspow[i]
             else:
-                results[i] = results[i-1] ** validkeys[i]
-        zippedkeys = zip(validkeys, results)
+                results[i] = results[i-1] ** validkeyspow[i]
+        zippedkeys = zip(validkeyspow, results)
         calculator = MathOperations(2)
         self.assertEqual(calculator.getvalue(), 2)
         for key, result in zippedkeys:
             self.assertEqual(calculator.pow(key), result)
+
+    def test_pow_3(self):
+        calculator = MathOperations()
+        for key in invalidkeyspow:
+            with self.assertRaises(ValueError):
+                calculator.pow(key)
 
     def test_root_1(self):
         results = [0] * len(validkeys)
