@@ -64,8 +64,12 @@ class MathOperations:
         """
         if not(isnum(self.ans) and isnum(num)):
             raise TypeError()
-    
-        self.ans = self.ans+num
+        #exception to handle float limits
+        try:
+            self.ans = self.ans+num
+        except OverflowError:
+            self.ans = int(self.ans)+int(num)
+
         return self.ans
 
 
@@ -79,8 +83,14 @@ class MathOperations:
         :return: funkce vraci hodnotu ans po odecteni hodnoty num
         """
         if not(isnum(self.ans) and isnum(num)):
-            raise TypeError()
-        self.ans = self.ans-num
+            raise TypeError()       
+        
+        #exception to handle float limits
+        try:
+            self.ans = self.ans-num
+        except OverflowError:
+            self.ans = int(self.ans)-int(num)
+
         return self.ans
 
 
@@ -94,8 +104,12 @@ class MathOperations:
         :return: funkce vraci hodnotu ans po vynasobeni hodnotou num
         """
         if not(isnum(self.ans) and isnum(num)):
-            raise TypeError()
-        self.ans = self.ans*num
+            raise TypeError()    
+        #exception to handle float limits
+        try:
+            self.ans = self.ans*num
+        except OverflowError:
+            self.ans = int(self.ans)*int(num)
         return self.ans
 
     def div(self, num):
@@ -111,7 +125,14 @@ class MathOperations:
                raise TypeError()
         if num == 0 or num == -0 :
              raise ZeroDivisionError()
-        self.ans = self.ans/num
+        #exception to handle float limits
+        try:
+            self.ans = self.ans/num
+        except OverflowError:
+            if int(num)==0:
+                raise ZeroDivisionError()
+            self.ans = int(self.ans)/int(num)
+
         return self.ans
 
     def factorial(self):
@@ -155,7 +176,12 @@ class MathOperations:
         if num<0 or (not isinstance(num, int)): #ERROR if num is nonnatural number
             raise ValueError()
 
-        self.ans = round(self.ans**num,ROUNDED_TO)
+        #exception to handle float limit
+        try:
+            self.ans = self.ans**num
+        except OverflowError:   
+            self.ans = int(self.ans)**int(num)
+
         return self.ans
 
 
