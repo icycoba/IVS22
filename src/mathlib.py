@@ -155,11 +155,7 @@ class MathOperations:
         if num<0 or (not isinstance(num, int)): #ERROR if num is nonnatural number
             raise ValueError()
 
-        result = 1
-        while num > 0:
-            result *= self.ans
-            num-=1
-        self.ans = round(result,ROUNDED_TO)
+        self.ans = round(self.ans**num,ROUNDED_TO)
         return self.ans
 
 
