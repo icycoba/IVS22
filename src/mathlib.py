@@ -173,25 +173,41 @@ class MathOperations:
         :param num: hodnota, kterou se bude odmocnovat
         :return: funkce vraci hodnotu ans po odmocneni hodnotou num
         """
-#        if not(isnum(self.ans) and isnum(num)):
-#            raise TypeError()
-#
-#        if (num%2 == 0 and self.ans<0 ) or (not isinstance(num, int)) or num<0:
-#            raise ValueError()
-#
- #       tmp = self.ans
- #       x1 = 0
- #       x2 = (num-1)/num*x1+tmp/(num*pow(tmp,num-1))
- #       tmp=num-1
- #       x1 = x2
- #       x2 = (num-1)/num*x1+tmp/(num*pow(tmp,num-1))
- #       tmp=num-1
-#
-   #     while(abs(x1-x2)<EPSILON):
-   #         x1 = x2
-   #         x2 = (num-1)/num*x1+tmp/(num*pow(tmp,num-1))
-   #         tmp=num-1
-   #     self.ans = round(x2,ROUNDED_TO)
+        if not(isnum(self.ans) and isnum(num)):
+            raise TypeError()
+
+        if (num%2 == 0 and self.ans<0 ) or (not isinstance(num, int)) :
+            #(or num<0)
+            raise ValueError()
+
+        if((self.ans==0 and num < 0) or num==0):
+            raise ZeroDivisionError()
+
+        negative = False
+        if num < 0:
+            negative = True
+            num = -num
+
+        if self.ans > 0:
+            bot = 0
+            top = self.ans
+        else:
+            bot = self.ans
+            top = 0
+
+        result = self.ans
+        while abs(result**num - self.ans) > EPSILON:
+            if result**num > self.ans:
+                top = result
+            else:
+                bot = result
+            result = (bot+top)/2
+            
+        if negative and result != 0:
+            result = 1/result
+
+
+        self.ans = round(result,ROUNDED_TO)
         return self.ans
 
 
