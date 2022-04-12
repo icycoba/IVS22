@@ -1,4 +1,6 @@
 
+from ast import Expression
+from cmath import exp
 from mathlib import MathOperations
 
 def strtonum(mystring):
@@ -42,6 +44,51 @@ def usefunc(func,expression):
         pass
     return expression
 
+
+def myisdigit(var):
+    if var.isdigit() or (var[1:].isdigit() and (var[0] == "-" or var[0] == "+" )):
+        return True
+    return False
+
+#gets x argument for operation
+def getx(leftside):
+    #vrati x a zbytek
+    xend = 0
+    yend = 0
+    x=""
+    lastchar = "0"
+    for j in reversed(leftside):
+        if ((not j.isdigit()) and j != "." and 1!="-" and 1!="+"):
+            break
+        elif (not j.isdigit()) and (lastchar=="+" or lastchar=="-"):
+            break
+        elif ( j.isdigit()) and (lastchar=="+" or lastchar=="-"):
+            x = x[0:-1]
+        x+=j
+        lastchar = j
+    x = x[::-1]
+    returndict = {"x" : x, "before" : leftside[:len(leftside)-len(x)]}
+
+    return returndict
+
+#gets y argument for operation
+def gety(rightside):
+    #vrati y a zbytek
+    y=""
+    for idx2, j in enumerate(rightside):
+        if ((not j.isdigit()) and j != "." and (not(idx2==0 and (j == "+" or j == "-")))):
+            break
+        y+=j
+    returndicty = {"y" : y, "after" : rightside[len(y):]}
+    return returndicty
+
+def rdupli(myexpression):
+    myexpression = myexpression.replace("--","")
+    myexpression = myexpression.replace("++","")
+    myexpression = myexpression.replace("-+","")
+    myexpression = myexpression.replace("+-","")
+    return myexpression
+
 def rfunc(myexpression):
     funclist = ["fact","pow","root","sin"]
     return_num = myexpression
@@ -72,27 +119,27 @@ def rfunc(myexpression):
                 after = myexpression[idx1+len(func)+endposition+1:]
 
                 argsplit = mid.split(",")
-                if func == "fact" and mid.isdigit():
+                if func == "fact" and myisdigit(mid):
                     mid = fact(mid)
                     pass
-                elif func == "pow" and len(argsplit) == 2 and argsplit[1].isdigit() and argsplit[0].isdigit() :
+                elif func == "pow" and len(argsplit) == 2 and myisdigit(argsplit[1]) and myisdigit(argsplit[0]) :
                     mid = mypow(argsplit[0],argsplit[1])
                     pass
-                elif func == "root" and len(argsplit) == 2 and argsplit[1].isdigit() and argsplit[0].isdigit() :
+                elif func == "root" and len(argsplit) == 2 and myisdigit(argsplit[1]) and myisdigit(argsplit[0]) :
                     mid = root(argsplit[0],argsplit[1])
                     pass
-                elif func == "sin" and mid.isdigit():
+                elif func == "sin" and myisdigit(mid):
                     mid = mysin(mid)
                     pass
                 else:
                     if "," in mid:
                         
-                        mid = etn(argsplit[0]) + "," + etn(argsplit[1])
+                        mid = exprtonum(argsplit[0]) + "," + exprtonum(argsplit[1])
                         mid=usefunc(func,mid)
 
                         pass
                     else:
-                        mid = etn(mid)
+                        mid = exprtonum(mid)
                         mid=usefunc(func,mid)
                 
                 return_num = before + str(mid) + after
@@ -104,7 +151,7 @@ def rfunc(myexpression):
             
         pass
 
-    mydict = {"expression" : return_num, "value" : leave}
+    mydict = {"expression" : rdupli(return_num), "value" : leave}
     return mydict
 
 
@@ -134,7 +181,7 @@ def rparenthesis(myexpression):
             if mid.isdigit():
                 pass
             else:
-                mid = etn(mid)            
+                mid = exprtonum(mid)            
             return_num = before + str(mid) + after
             
             
@@ -144,7 +191,7 @@ def rparenthesis(myexpression):
             
         pass
 
-    mydict = {"expression" : return_num, "value" : leave}
+    mydict = {"expression" : rdupli(return_num), "value" : leave}
     return mydict
 
 def altfunc(myexpression):
@@ -170,14 +217,6 @@ def altfunc(myexpression):
                 x+=j
             x = x[::-1]
 
-            #for idx2, j in enumerate(reversed(myexpression[:idx1])):
-            #    if ((not j.isdigit()) and j != ".") or idx2+1 == len(myexpression[:idx1]):
-            #         x = myexpression[idx1-idx2:idx1]
-            #         startposition = idx1-idx2
-            #         if (not j.isdigit()) and j != ".":
-            #            xend=1
-            #         break
-            #    pass
             y=""
             for idx2, j in enumerate((myexpression[idx1+1:])):
                 endposition = idx1+idx2+1
@@ -202,7 +241,7 @@ def altfunc(myexpression):
             break
         pass
 
-    mydict = {"expression" : return_num, "value" : leave}
+    mydict = {"expression" : rdupli(return_num), "value" : leave}
     return mydict
 
 
@@ -215,53 +254,56 @@ def rmuldiv(myexpression):
             break
 
         if i == "*" or i == "/" :
-            
-            endposition = 0
-            startposition = 0
-            xend = 0
-            yend = 0
-            x=""
-            for idx2, j in enumerate(reversed(myexpression[:idx1])):
-                startposition = idx1-idx2
-                if ((not j.isdigit()) and j != "."):
-                    xend = 1
-                    break
-                x+=j
-            x = x[::-1]
 
-            #for idx2, j in enumerate(reversed(myexpression[:idx1])):
-            #    if ((not j.isdigit()) and j != ".") or idx2+1 == len(myexpression[:idx1]):
-            #         x = myexpression[idx1-idx2:idx1]
-            #         startposition = idx1-idx2
-            #         if (not j.isdigit()) and j != ".":
-            #            xend=1
-            #         break
-            #    pass
-            y=""
-            for idx2, j in enumerate((myexpression[idx1+1:])):
-                endposition = idx1+idx2+1
-                if ((not j.isdigit()) and j != "."):
-                    yend = 1
-                    break
-                y+=j
+            returnx = getx(myexpression[:idx1])
+            returny = gety(myexpression[idx1+1:])
 
             if i == "*":
-                result = str(strtonum(x)*strtonum(y))
+                result = str(strtonum(returnx["x"])*strtonum(returny["y"]))
             else:
-                result = str(strtonum(x)/strtonum(y))
+                result = str(strtonum(returnx["x"])/strtonum(returny["y"]))
 
-            return_num = ""
-            if xend:
-                return_num += myexpression[0:startposition]
-            return_num += result
-            if yend:
-                return_num += myexpression[endposition:]            
+            return_num = returnx["before"] + result + returny["after"]            
+
+#            endposition = 0
+#            startposition = 0
+#            xend = 0
+#            yend = 0
+#            
+#            x=""
+#            for idx2, j in enumerate(reversed(myexpression[:idx1])):
+#                startposition = idx1-idx2
+#                if ((not j.isdigit()) and j != "."):
+#                    xend = 1
+#                    break
+#                x+=j
+#            x = x[::-1]
+#
+#            y=""
+#            for idx2, j in enumerate((myexpression[idx1+1:])):
+#                endposition = idx1+idx2+1
+#                if ((not j.isdigit()) and j != "."):
+#                    yend = 1
+#                    break
+#                y+=j
+#
+#            if i == "*":
+#                result = str(strtonum(x)*strtonum(y))
+#            else:
+#                result = str(strtonum(x)/strtonum(y))
+#
+#            return_num = ""
+#            if xend:
+#                return_num += myexpression[0:startposition]
+#            return_num += result
+#            if yend:
+#                return_num += myexpression[endposition:]            
             
             leave = 1
             break
         pass
 
-    mydict = {"expression" : return_num, "value" : leave}
+    mydict = {"expression" : rdupli(return_num), "value" : leave}
     return mydict
 
 
@@ -272,40 +314,48 @@ def raddsub(myexpression):
         if leave:
             break
 
-        if i == "+" or i == "-" :
+        if (i == "+" or i == "-") and myexpression[idx1-1].isdigit() and idx1!=0 :
             endposition = 0
             endstyle = 0
             #+- are last evaluated operations, therefore first parameter is always right 
             x = myexpression[0:idx1] 
             #load parameter y
-            y=""
-            for idx2, j in enumerate((myexpression[idx1+1:])):
-                endposition = idx1+idx2+1
-                if ((not j.isdigit()) and j != "."):
-                    endstyle = 1
-                    break
-                y+=j
-            #choose operation
+            returny = gety(myexpression[idx1+1:])
+            
             if i == "+":
-                result = str(strtonum(x)+strtonum(y))
+                result = str(strtonum(x)+strtonum(returny["y"]))
             else:
-                result = str(strtonum(x)-strtonum(y))
+                result = str(strtonum(x)-strtonum(returny["y"]))
             #return value
-            if endstyle:
-                return_num = result  + myexpression[endposition:]
-            else:
-                return_num = result
+            return_num = result  + returny["after"]
+
+#///////////////            for idx2, j in enumerate((myexpression[idx1+1:])):
+#///////////////                endposition = idx1+idx2+1
+#///////////////                if ((not j.isdigit()) and j != "."):
+#///////////////                    endstyle = 1
+#///////////////                    break
+#///////////////                y+=j
+#///////////////            #choose operation
+#///////////////            if i == "+":
+#///////////////                result = str(strtonum(x)+strtonum(y))
+#///////////////            else:
+#///////////////                result = str(strtonum(x)-strtonum(y))
+#///////////////            #return value
+#///////////////            if endstyle:
+#///////////////                return_num = result  + myexpression[endposition:]
+#///////////////            else:
+#///////////////                return_num = result
             
             
             leave = 1
             break
         pass
 
-    mydict = {"expression" : return_num, "value" : leave}
+    mydict = {"expression" : rdupli(return_num), "value" : leave}
     return mydict
 
 
-def etn (expression):
+def exprtonum (expression):
 
     mydict = { "expression": expression.replace(" ",""), "value":0}
 
@@ -343,8 +393,8 @@ def etn (expression):
 #print(etn("pow(2,2*2)*2+1"))
 
 def printex(var, eq):
-    print(etn(var)+" = " + eq)
+    print(exprtonum(var)+" = " + eq)
 
 
 
-print(etn("1+2*3!*2+1")  + " = 7")
+printex("")
