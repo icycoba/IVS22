@@ -83,10 +83,10 @@ def gety(rightside):
     return returndicty
 
 def rdupli(myexpression):
-    myexpression = myexpression.replace("--","")
-    myexpression = myexpression.replace("++","")
-    myexpression = myexpression.replace("-+","")
-    myexpression = myexpression.replace("+-","")
+    myexpression = myexpression.replace("--","+")
+    myexpression = myexpression.replace("++","+")
+    myexpression = myexpression.replace("-+","-")
+    myexpression = myexpression.replace("+-","-")
     return myexpression
 
 def rfunc(myexpression):
@@ -392,9 +392,15 @@ def exprtonum (expression):
 
 #print(etn("pow(2,2*2)*2+1"))
 
-def printex(var, eq):
-    print(exprtonum(var)+" = " + eq)
+def printex(var):
+    var = var.split("=")
+    print(exprtonum(var[0])+" = " + var[1])
 
 
 
-printex("")
+printex("1*1*1*1*1=1")
+printex("5*5=25")
+printex("5*-5=-25")
+printex("-(10)+30=20")
+printex("(-10)+30=20")
+printex("((-10+5)-(-1))=-4")
