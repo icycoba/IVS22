@@ -3,28 +3,26 @@ import tkinter
 from tkinter import *
 from tkinter import messagebox
 
-
+# okno
 root = tkinter.Tk()
 root['bg'] = '#FAFAFA'
 root.geometry('380x600')
 root.resizable(False, False)
 root.title('Kalkulačka')
 
-priklad = tkinter.StringVar(root, 'huh')
-#ix = tkinter.IntVar(root, '0')
-#iy = tkinter.IntVar(root, '0')
+
 ix = 0
 iy = 0
-#vysledek = tkinter.IntVar(root, '0')
+
 vysledek = 0
 text = Text(root, height='4')
-#text.insert(END, mathlib.superx)
 
+# pruhy pro tlačítka
 qwe = PanedWindow(bg='#ECECEC')
 asd = PanedWindow(bg='#ECECEC')
 yxc = PanedWindow(bg='#ECECEC')
 
-
+# proměnné pro výpočty
 sety = 0
 setx = 0
 bignum = 1
@@ -32,7 +30,8 @@ num_end = False
 op = 0
 lastop = 0
 opcodes = ["=", "+", "-"]
-    
+
+# načtení čísla
 def test(num):
     global ix
     global iy
@@ -45,15 +44,16 @@ def test(num):
     if setx == 0 and sety == 0:
         ix = ix*bignum+num
         bignum = 10
-        #setx = 1
+        
     elif setx == 1 and sety == 0:
         iy = iy*bignum+num
         bignum=10
-        #sety = 1
+        
     text.delete('1.0', END)
     #text.insert(END,str(ix)+"("+str(setx)+", "+str(sety)+") ")
     text.insert(END, str(ix)+opcodes[lastop]+str(iy))
-    
+
+# načtení a provedení operace
 def operace(op):
     global ix
     global iy
@@ -69,8 +69,8 @@ def operace(op):
         setx = 1
         lastop = op
     elif setx == 1 and sety == 0 and op != 0:
-        lastop = op
         ix = operations[lastop](iy)
+        lastop = op
         iy = 0
     elif setx == 1 and sety == 0 and op == 0:
         sety = 1
@@ -81,7 +81,7 @@ def operace(op):
         text.insert(END,str(vysledek))
     
     
-
+# přiřazení funkcí tlačítkam
 q = Button(qwe, text="1", width='12',height='4', borderwidth='1', command=lambda: test(1))  #1 cislo = 8 px 3 buttony : 3*8 = 24, celkem/24 = 100/24=4 
 w = Button(qwe, text="2", width='12',height='4', borderwidth='1', command=lambda: test(2))
 e = Button(qwe, text="3", width='12',height='4', borderwidth='1', command=lambda: test(3))
@@ -97,7 +97,7 @@ x = Button(yxc, text="8", width='12',height='4', borderwidth='1', command=lambda
 c = Button(yxc, text="9", width='12',height='4', borderwidth='1', command=lambda: test(9))
 v = Button(yxc, text="=", width='12',height='4', borderwidth='1', command=lambda: operace(0))
 
-
+# pruhy s tlačítky na spodek
 yxc.pack(
     side=BOTTOM,
     fill=X
@@ -116,6 +116,7 @@ text.pack(
     fill=BOTH,
 )
 
+# přiřazení tlačítek do pruhů
 qwe.add(q)
 qwe.add(w)
 qwe.add(e)
