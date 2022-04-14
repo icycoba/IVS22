@@ -1,0 +1,51 @@
+................F.EE.F.
+======================================================================
+ERROR: test_pow_1 (__main__.TestBasicMathOperations)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "mathlibtests.py", line 194, in test_pow_1
+    self.assertEqual(calculator.pow(key), result)
+  File "/mnt/c/Users/stepa/OneDrive/Dokumenty/GitHub/IVS22/src/mathlib.py", line 156, in pow
+    raise ValueError()
+ValueError
+
+// tady je myslim negativni exponent, se kterým nepočítám viz. "1.5:    Pokročilé matematické operace (faktoriál, umocňování s přirozenými exponenty, obecná odmocnina) (10.04.2022)"
+
+======================================================================
+ERROR: test_pow_2 (__main__.TestBasicMathOperations)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "mathlibtests.py", line 202, in test_pow_2
+    results[i] = results[i-1] ** validkeys[i]
+OverflowError: (34, 'Numerical result out of range')
+
+//???
+
+======================================================================
+FAIL: test_mul_3 (__main__.TestBasicMathOperations)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "mathlibtests.py", line 116, in test_mul_3
+    self.assertEqual(calculator.mul(key), result)
+AssertionError: 1 != 2
+
+// result je špatně, 1*1 je určitě 1 (viz výpis na konci)
+
+======================================================================
+FAIL: test_root_2 (__main__.TestBasicMathOperations)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "mathlibtests.py", line 228, in test_root_2
+    self.assertEqual(calculator.root(key), result)
+AssertionError: 2 != 0.5
+
+//moje vina, ještě dodělám root
+
+----------------------------------------------------------------------
+Ran 23 tests in 0.029s
+
+FAILED (failures=2, errors=2)
+1
+1
+2
+///
