@@ -10,6 +10,12 @@ Popis:      Modul pro řešení matematických výrazů
 from mathlib import MathOperations
 
 def strtonum(mystring):
+    """
+    Funkce strtonum konvertuje řetězec na číslo.
+    datový typ čísla je určen podle formátu čísla
+    :param mystring: konvertovaný řetězec
+    :return: funkce vrací výsledné číslo po konverzi řetězce
+    """ 
     if not isinstance(mystring,str):
         num = mystring
     elif "." in mystring:
@@ -19,20 +25,57 @@ def strtonum(mystring):
     return num
 
 def fact (x):
+    """
+    Funkce fact volá funkci factorial z knihovny mathlib.
+
+    :param x: předávané číslo pro funkci faktoriál
+    :return: funkce vraci hodnotu x po použití funkce factorial
+    """ 
     calculator = MathOperations(strtonum(x))
     return calculator.factorial()
 
 def mypow (x,num):
+    """
+    Funkce mypow volá funkci pow z knihovny mathlib.
+
+    :param x: základ pro umocnění
+    :param num: exponent pro umocnění
+    :return: funkce vrací hodnotu po umocnění čísla x
+    """ 
     calculator = MathOperations(strtonum(x))
     return calculator.pow(strtonum(num))
+
+
 def mysin (x):
+    """
+    Funkce mysin volá funkci sin z knihovny mathlib.
+
+    :param x: předávané číslo pro funkci sin
+    :return: funkce vraci hodnotu x po použití funkce sin
+    """ 
+
     calculator = MathOperations(strtonum(x))
     return calculator.sin()
 def root (x,num):
+    """
+    Funkce root volá funkci pow z knihovny mathlib.
+
+    :param x: základ pro odmocnění
+    :param num: exponent pro odmocnění
+    :return: funkce vrací hodnotu po odmocnění čísla x
+    """ 
     calculator = MathOperations(strtonum(x))
     return calculator.root(strtonum(num))
 
 def usefunc(func,expression):
+    """
+    Funkce zavolá funkci na základě prvního parametru a jako parametr/y ji předá expression rozdělený oddělovačem ","
+
+    :param func: volaná funkce/operace
+    :param expression: argumenty pro volanou funkci
+    :return: funkce vrací návratovou hodnotu volané funkce
+    """ 
+
 
     if func == "fact":
         expression = fact(strtonum(expression))
@@ -51,12 +94,27 @@ def usefunc(func,expression):
 
 
 def myisdigit(var):
+    """
+    Funkce myisdigit určí zda řetězec var je číslo
+
+    :param var: testovaný řetězec
+    :return: funkce vrací boolovu hodnotu tvrzení, že řetězec var reprezentuje číslo
+    """ 
+
     if var.isdigit() or (var[1:].isdigit() and (var[0] == "-" or var[0] == "+" )):
         return True
     return False
 
 #gets x argument for operation
 def getx(leftside):
+    """
+    Funkce getx vyseparuje číslo 'x'  pro použití pro operaci jako argument na konci z řetězce leftside
+    x je míněno jako levý argument pro operaci (např. u oprace sčítání: x+y)
+
+    :param leftside: zpracovávaný řetězec
+    :return: funkce vrací "dictionary" s klíčem "x" jako hodnota nalezeného 'x' a klíčem "before" s hodnotou zbytku řetězce bez 'x' 
+    """ 
+
     #vrati x a zbytek
     xend = 0
     yend = 0
@@ -78,6 +136,14 @@ def getx(leftside):
 
 #gets y argument for operation
 def gety(rightside):
+    """
+    Funkce gety vyseparuje číslo 'y'  pro použití pro operaci jako argument na začátku z řetězce rightside
+    y je míněno jako pravý argument pro operaci (např. u oprace sčítání: x+y)
+
+    :param rightside: zpracovávaný řetězec
+    :return: funkce vrací "dictionary" s klíčem "y" jako hodnota nalezeného 'y' a klíčem "after" s hodnotou zbytku řetězce bez 'y' 
+    """ 
+
     #vrati y a zbytek
     y=""
     for idx2, j in enumerate(rightside):
@@ -88,6 +154,13 @@ def gety(rightside):
     return returndicty
 
 def rdupli(myexpression):
+    """
+    Funkce rdupli zkrátí (resp. vyhodnotí) všechna opakující se znaménka +/- v řetězci
+
+    :param myexpression: zpracovávaný řetězec
+    :return: funkce vrací řetězec myexpression, ale s upravenými znaménky
+    """ 
+
     myexpression = myexpression.replace("--","+")
     myexpression = myexpression.replace("++","+")
     myexpression = myexpression.replace("-+","-")
@@ -95,6 +168,15 @@ def rdupli(myexpression):
     return myexpression
 
 def rfunc(myexpression):
+    """
+    Funkce rfunc vyhodnotí první nalezenou zleva operaci typu funkce v řetězci myexpression, které jsou zapsané slovně
+    vyhodnocované funkce: fact(),pow(),root(),sin()
+    pokud argumenty funkcí nejsou vyhodnoceny, nejdříve se vyhodnotí a potom až se vyhodnocuje samotná funkce
+
+    :param myexpression: zpracovávaný řetězec
+    :return: funkce vrací řetězec myexpression, ale s vyhodnocenou první zleva nalezenou operací typu funkce + hodnotu leave, zda vyhodnocování vůbec proběhlo
+    """ 
+
     funclist = ["fact","pow","root","sin"]
     return_num = myexpression
     leave = 0
@@ -161,6 +243,14 @@ def rfunc(myexpression):
 
 
 def rparenthesis(myexpression):
+    """
+    Funkce rparenthesis vyhodnotí první nalezenou zleva dvojici kulatých závorek
+    pokud obsah závorek není vyhodnocen, nejdříve se vyhodnotí a potom až se odstraní samotné závorky
+
+    :param myexpression: zpracovávaný řetězec
+    :return: funkce vrací řetězec myexpression, ale s vyhodnoceným obsahem závorek a odebranými samotnými závorkami + hodnotu leave, zda vyhodnocování vůbec proběhlo
+    """ 
+
     leave = 0
     return_num = myexpression
     for idx1, i in enumerate(myexpression):
@@ -200,6 +290,15 @@ def rparenthesis(myexpression):
     return mydict
 
 def altfunc(myexpression):
+    """
+    Funkce altfunc vyhodnotí první nalezenou zleva operaci typu funkce v řetězci myexpression, které jsou zapsané symbolicky
+    vyhodnocované funkce, příklad: x**y (umocnění), x! (faktoriál)
+    pokud argumenty funkcí nejsou vyhodnoceny, nejdříve se vyhodnotí a potom až se vyhodnocuje samotná funkce
+
+    :param myexpression: zpracovávaný řetězec
+    :return: funkce vrací řetězec myexpression, ale s vyhodnocenou první zleva operací typu funkce  + hodnotu leave, zda vyhodnocování vůbec proběhlo
+    """ 
+
     leave = 0
     return_num = myexpression
     for idx1, i in enumerate(myexpression):
@@ -252,6 +351,12 @@ def altfunc(myexpression):
 
 
 def rmuldiv(myexpression):
+    """
+    Funkce rmuldiv vyhodnotí první nalezenou zleva operaci násobení nebo dělení
+
+    :param myexpression: zpracovávaný řetězec 
+    :return: funkce vrací řetězec myexpression, ale s vyhodnocenou první operaci násobení nebo dělení + hodnotu leave, zda vyhodnocování vůbec proběhlo
+    """ 
     leave = 0
     return_num = myexpression
     for idx1, i in enumerate(myexpression):
@@ -312,6 +417,12 @@ def rmuldiv(myexpression):
 
 
 def raddsub(myexpression):
+    """
+    Funkce raddsub vyhodnotí první nalezenou zleva operaci sčítání nebo odčítání
+
+    :param myexpression: zpracovávaný řetězec
+    :return: funkce vrací řetězec myexpression, ale s vyhodnocenou první operaci sčítání nebo odčítání + hodnotu leave, zda vyhodnocování vůbec proběhlo
+    """ 
     leave = 0
     return_num = myexpression
     for idx1, i in enumerate(myexpression):
@@ -366,6 +477,16 @@ def raddsub(myexpression):
 
 
 def exprtonum (expression):
+    """
+    Funkce exprtonum vyhodnotí zadaný výraz
+    Povolené části výrazu jsou: čísla v desítkové soustavě, závorky, sčítání, násobení, dělené, odčítání ...a funkce: fact(x),sin(x),root(x,y),pow(x,y)
+            - přičemž pow(x,y) a fact(x) mohou být zapsány symbolicky: x**y, x! 
+
+    :param myexpression: zpracovávaný výraz
+    :return: funkce vrací číslo, které je výsledkem výrazu
+    """ 
+
+
     #Přidává funkcionalitu PI
     expression = expression.replace("PI","3.141592653589793")
     mydict = { "expression": expression.replace(" ",""), "value":0}
