@@ -1,6 +1,12 @@
+"""
+Soubor:     expression_to_num.py
+Autor:      Štěpán Nekula   (xnekul04)
+Projekt:    IVS #2 - Tvorba kalkulačky
+Popis:      Modul pro řešení matematických výrazů
+            Používá operace z matematické knihnovny mathlib.py
+"""
 
-from ast import Expression
-from cmath import exp
+
 from mathlib import MathOperations
 
 def strtonum(mystring):
@@ -12,7 +18,6 @@ def strtonum(mystring):
         num = int(mystring)
     return num
 
-#TODO remove int()
 def fact (x):
     calculator = MathOperations(strtonum(x))
     return calculator.factorial()
@@ -257,14 +262,13 @@ def rmuldiv(myexpression):
 
             returnx = getx(myexpression[:idx1])
             returny = gety(myexpression[idx1+1:])
-
+            calculator = MathOperations(strtonum(returnx["x"]))
             if i == "*":
-                result = str(strtonum(returnx["x"])*strtonum(returny["y"]))
+                result = str(calculator.mul(strtonum(returny["y"])))
             else:
-                result = str(strtonum(returnx["x"])/strtonum(returny["y"]))
+                result = str(calculator.div(strtonum(returny["y"])))
 
             return_num = returnx["before"] + result + returny["after"]            
-
 #            endposition = 0
 #            startposition = 0
 #            xend = 0
@@ -318,16 +322,21 @@ def raddsub(myexpression):
             endposition = 0
             endstyle = 0
             #+- are last evaluated operations, therefore first parameter is always right 
-            x = myexpression[0:idx1] 
+            x = myexpression[0:idx1]
+
+            if x=="":
+                x=0
             #load parameter y
             returny = gety(myexpression[idx1+1:])
-            
+
+            calculator = MathOperations(strtonum(x))
             if i == "+":
-                result = str(strtonum(x)+strtonum(returny["y"]))
+                result = str(calculator.add(strtonum(returny["y"])))
             else:
-                result = str(strtonum(x)-strtonum(returny["y"]))
+                result = str(calculator.sub(strtonum(returny["y"])))
             #return value
             return_num = result  + returny["after"]
+
 
 #///////////////            for idx2, j in enumerate((myexpression[idx1+1:])):
 #///////////////                endposition = idx1+idx2+1
@@ -353,6 +362,7 @@ def raddsub(myexpression):
 
     mydict = {"expression" : rdupli(return_num), "value" : leave}
     return mydict
+
 
 
 def exprtonum (expression):
@@ -390,17 +400,39 @@ def exprtonum (expression):
     expression = mydict["expression"]
     return expression
 
-#print(etn("pow(2,2*2)*2+1"))
+
+
+
+class MathSolver:
+    """Třída sloužící pro řešení matematických výrazů"""
+
+    def __init__(self, num=0):
+        """
+        Inicializace proměnné ans
+
+        :param num: volitelny parametr; defaultni hodnota je 0
+        """
+        if not(isinstance(num,int) or isinstance(num,float)):
+            raise TypeError()
+        self.ans = num
+
+    def solve(self,expression):
+        """
+        Použití metody solve na proměnnou expression
+
+        Vyřeší matematický výraz a přiřadí hodnotě ans
+
+        :return: metoda vrací hodnotu ans po vyřešení výrazu
+        """
+        if not(isinstance(expression,str)):
+            raise TypeError()
+
+        self.ans = exprtonum(expression)
+        return self.ans
+
+
 
 def printex(var):
     var = var.split("=")
     print(exprtonum(var[0])+" = " + var[1])
 
-
-
-printex("1*1*1*1*1=1")
-printex("5*5=25")
-printex("5*-5=-25")
-printex("-(10)+30=20")
-printex("(-10)+30=20")
-printex("((-10+5)-(-1))=-4")
