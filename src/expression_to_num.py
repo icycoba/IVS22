@@ -366,9 +366,9 @@ def raddsub(myexpression):
 
 
 def exprtonum (expression):
-
+    #Přidává funkcionalitu PI
+    expression = expression.replace("PI","3.141592653589793")
     mydict = { "expression": expression.replace(" ",""), "value":0}
-
 # evaluate functions
     while(not mydict["expression"].isdigit()):
         mydict = rfunc(mydict["expression"])
@@ -405,6 +405,15 @@ def exprtonum (expression):
 
 class MathSolver:
     """Třída sloužící pro řešení matematických výrazů"""
+    #
+    # podpopruje:
+    # 1) "+x" "-x"
+    # 2) "x+y" "x-y"
+    # 3) "(x)"
+    # 4) "fact(x)" "sin(x)" "pow(x)" "root(x)"
+    # 5) "x**y" "x!"
+    # 6) "x*y" "x/y"
+    # 7) "PI" // PI = 3.141592653589793
 
     def __init__(self, num=0):
         """
@@ -435,4 +444,3 @@ class MathSolver:
 def printex(var):
     var = var.split("=")
     print(exprtonum(var[0])+" = " + var[1])
-
