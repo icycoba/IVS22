@@ -11,6 +11,7 @@ root.resizable(False, False)
 root.title('Kalkulačka')
 
 
+
 ix = 0
 iy = 0
 iz = 0
@@ -19,6 +20,8 @@ stridacka = 0
 
 vysledek = 0
 text = Text(root, height='4')
+
+
 
 # pruhy pro tlačítka
 qwe = PanedWindow(bg='#ECECEC')
@@ -52,32 +55,33 @@ def test(num):
         sety = 0
         setz = 0
         text.delete('1.0', END)
-        
-    if setx == 0 and sety == 0:
-        ix = ix*bignum+num
-        bignum = 10
-        
-    elif setx == 1 and sety == 0:
-        iy = iy*bignum+num
-        bignum=10
-        
-    elif setx == 1 and sety == 1:
-        iz = iz*bignum+num
-        bignum=10
-
-
-    text.insert(END, num)
     
-    # dobrý výpis pro hledání chyb
-    #text.delete('1.0', END)
-    #text.insert(END, str(ix)+opcodes[lastop[0]]+str(iy)+opcodes[lastop[1]]+str(iz))
-    stridacka = 1
+    if stridacka != 2:
+        if setx == 0 and sety == 0:
+            ix = ix*bignum+num
+            bignum = 10
+            
+        elif setx == 1 and sety == 0:
+            iy = iy*bignum+num
+            bignum=10
+            
+        elif setx == 1 and sety == 1:
+            iz = iz*bignum+num
+            bignum=10
+    
+    
+        text.insert(END, num)
+        
+        # dobrý výpis pro hledání chyb
+        #text.delete('1.0', END)
+        #text.insert(END, str(ix)+opcodes[lastop[0]]+str(iy)+opcodes[lastop[1]]+str(iz))
+        stridacka = 1
     
 # načtení a provedení operace
 def operace(op):
     
     global stridacka
-    if stridacka == 1:
+    if stridacka == 1 or stridacka == 2:
         global ix
         global iy
         global iz
@@ -105,6 +109,12 @@ def operace(op):
                       mathlib.MathOperations(iy).factorial, mathlib.MathOperations(iy).sin
                       
                       ]
+        operations_z = ["",
+                   "","",
+                   "","",
+                   "","",
+                   mathlib.MathOperations(iz).factorial, mathlib.MathOperations(iz).sin  
+                   ]
         
         
         text.insert(END, opcodes[op])
@@ -115,10 +125,20 @@ def operace(op):
             setz = 0
         
         
-        if setx == 0 and sety == 0 and op != 0:
+        if setx == 0 and sety == 0 and op <= 6 and op >= 1:
             setx = 1
             lastop[0] = op
             #bignum = 1
+        elif op == 7 or op == 8:
+            stridacka = 2
+            if setx == 0:
+                #setx = 1
+                ix = operations_x[op]()
+            elif setx == 1 and sety == 0:
+                #sety = 1
+                iy = operations_y[op]()
+            elif setx == 1 and sety == 1:
+                iz = operations_z[op]()
         elif setx == 1 and sety == 0 and lastop[0] >= 3 and lastop[0] <= 6 and op != 0:
             ix = operations_x[lastop[0]](iy)
             iy = 0
@@ -130,7 +150,7 @@ def operace(op):
         elif setx == 1 and sety == 0 and op >= 3 and op <= 6:
             sety = 1
             lastop[1] = op
-        elif setx == 1 and sety == 1 and op != 0:
+        elif setx == 1 and sety == 1 and op >= 3 and op <= 6:
             if lastop[0] < 3 and lastop[1] < 3:
                 ix = operations_x[lastop[0]](iy)
                 iy = iz
@@ -149,14 +169,21 @@ def operace(op):
             text.delete('1.0', END)
             text.insert(END,vysledek)
         elif setx == 1 and sety == 0 and op == 0:
-            try:
+            """try:
                 vysledek = operations_x[lastop[0]](iy)
                 text.delete('1.0', END)
                 text.insert(END,vysledek)
             except (TypeError, ZeroDivisionError, ValueError):
                 text.delete('1.0', END)
                 text.insert(END,"Chyba v zadání výpočtu!")
-                pass
+                pass"""
+            """if stridacka == 2:
+                vysledek = ix
+            else:
+                """
+            vysledek = operations_x[lastop[0]](iy)
+            text.delete('1.0', END)
+            text.insert(END,vysledek)
             ix = vysledek
             iy = 0
             iz = 0
@@ -173,38 +200,11 @@ def operace(op):
             #ix = 0
     if op == 0:
         stridacka = 1
+    elif op == 7 or op == 8:
+        stridacka = 2
     else:
         stridacka = 0
-        
-        #puvodni + mala uprava, smazat asi pak.
-"""    if setx == 0 and sety == 0 and op != 0:
-        setx = 1
-        lastop = op
-        bignum = 1
-        
-    elif setx == 1 and sety == 0 and op != 0 and op < 7:
-        ix = operations[lastop](iy)
-        lastop = op
-        iy = 0
-    elif setx == 1 and sety == 0 and op > 6:
-        ix = operations[lastop]
-        lastop = op
-        iy = 0
-    elif setx == 1 and sety == 0 and op == 0:
-        sety = 1
-        bignum = 1
-        text.delete('1.0', END)
-        if lastop < 7:
-            vysledek = operations[lastop](iy)
-        else:
-            vysledek = operations[lastop]
-        ix = 0
-        iy = 0
-        text.insert(END,vysledek)
-    elif op == 0:
-        text.delete('1.0', END)
-        text.insert(END,str(ix))
-        ix = 0"""
+
     
 # přiřazení funkcí tlačítkam
 q = Button(qwe, text="1", width='10',height='4', borderwidth='1', command=lambda: test(1))  #1 cislo = 8 px 3 buttony : 3*8 = 24, celkem/24 = 100/24=4 
@@ -226,12 +226,6 @@ c = Button(yxc, text="9", width='10',height='4', borderwidth='1', command=lambda
 v = Button(yxc, text="a^n", width='10',height='4', borderwidth='1', command=lambda: operace(5))
 b = Button(yxc, text="n√a", width='10',height='4', borderwidth='1', command=lambda: operace(6))
 
-
-
-# faktorial a sinus nefunguji, nevim proc, hazi to tam:
-#<bound method MathOperations.factorial of <mathlib.MathOperations object at 0x000001C6BFC2D640>>
-# tak nevim co s tim moc.
-# taky jeste nema uplne deleni/nasobeni prednost.
 u = Button(uio, text="0", width='10',height='4', borderwidth='1', command=lambda: test(0))
 i = Button(uio, text="a!", width='10',height='4', borderwidth='1', command=lambda: operace(7))
 o = Button(uio, text="sin a", width='10',height='4', borderwidth='1', command=lambda: operace(8))
