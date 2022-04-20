@@ -7,7 +7,6 @@ Popis:      Program pro výpočet výběrové směrodatné odchylky
 """
 
 from expression_to_num import MathSolver, MathOperations
-# from mathlib import MathOperations
 import sys
 
 
@@ -20,38 +19,49 @@ def mean(narray):
     return result.getvalue()
 
 
-def deviationsum(narray, xmean):
+def deviationsum(narray):
+    # sum(x_i^2)
     result = MathOperations()
-    nxmeansquared = float(MathSolver().solve(f"{len(narray)}*{xmean}^2"))
-    arraylen = float(MathSolver().solve(f"{len(narray)}-1"))
-    # print(nxmeansquared)
     for num in narray:
         tempnum = MathOperations(num)
         tempnum.pow(2)
         result.add(tempnum.getvalue())
+    return result.getvalue()
+
+
+def deviation(narray):
+    # sqrt(1/N-1 * (sum(x_i^2) - N * x_mean^2))
+    result = MathOperations()
+    x_mean = mean(narray)
+    s_sum = deviationsum(narray)
+
+    nxmeansquared = float(MathSolver().solve(f"{len(narray)}*{x_mean}^2"))
+    arraylen = float(MathSolver().solve(f"{len(narray)}-1"))
+
+    result.add(s_sum)
     result.sub(nxmeansquared)
     result.div(arraylen)
     result.root(2)
-    return result
-
-
-def deviation(narray, xmean):
-    # sqrt(1/N-1 * (sum(x_i^2 - N * x_mean^2)))
-    pass
+    return result.getvalue()
 
 
 if __name__ == "__main__":
-    # Ošetřit správné otevření souboru
-    numarray = sys.stdin.read()
+    try:
+        numarray = sys.stdin.read()
+    except FileNotFoundError:
+        print("Soubor nenalezen.", file=sys.stderr)
+        exit(2)
+    except Exception as e:
+        print(f"Nastala neočekávaná chyba při otevírání souboru: \n{e}", file=sys.stderr)
+        exit(3)
     numarray = numarray.split()
     try:
         numarray = list(map(int, numarray))
     except ValueError as e:
-        print(f"ValueError: Jedna z hodnot nelze převést na číslo.")
+        print("ValueError: Jedna z hodnot nelze převést na číslo.", file=sys.stderr)
         exit(1)
 
-    x = mean(numarray)
-    result = deviationsum(numarray, x)
-    print(result.getvalue())
+    s = deviation(numarray)
+    print(s)
 
 # ...
