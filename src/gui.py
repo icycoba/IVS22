@@ -12,8 +12,8 @@ from expression_to_num import MathSolver
 
 ########################################################
 #PARAMS
-buttonwidth = 10
-buttonheight = 3
+buttonwidth = 8
+buttonheight = 2
 bfcolor ="#202020"
 normalbuttoncolor = "#111111"
 normalfontcolor = "#ffffff"
@@ -22,7 +22,7 @@ normalfontcolor = "#ffffff"
 # BASIC SETUP
 root = Tk()
 root['bg'] = bfcolor
-root.geometry('600x600')
+root.geometry('450x500')
 root.resizable(False, False)
 root.title('Kalkulačka')
 
