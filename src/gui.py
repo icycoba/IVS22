@@ -1,3 +1,12 @@
+"""
+Soubor:     gui.py
+Autor:      xxx
+Projekt:    IVS #2 - Tvorba kalkulačky
+Popis:      Grafické rozhraní pro kalkulačku
+"""
+
+#TODO: OUTPUT CHECK, HELP(Nápověda)
+
 from tkinter import *
 from expression_to_num import MathSolver
 
@@ -36,15 +45,16 @@ TextState = 0
 def insert(input):
     global TextState
 
-    #deletes unwanted message
+    #deletes unwanted error message
     if(TextState == -1):
         TextDisplay.delete('1.0', END)
+        TextState = 0
 
     #inserts new input
     TextDisplay.insert(END, input)
         
 def Delete():
-    TextDisplay.delete('end-1c', 'end')
+    TextDisplay.delete('end-2c', 'end')
 def AllClear():
     TextDisplay.delete('1.0', END)
 
@@ -70,7 +80,7 @@ def solve():
 def EnterKey():
     TextDisplay.delete('end-1c', 'end')
     solve()
-root.bind('<Return>', lambda event=None: EnterKey()) # This time *with* '()'!!!
+root.bind('<Return>', lambda event=None: EnterKey()) 
 
 #end of enter solution
 
