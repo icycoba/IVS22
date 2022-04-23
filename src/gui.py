@@ -5,10 +5,12 @@ Projekt:    IVS #2 - Tvorba kalkulačky
 Popis:      Grafické rozhraní pro kalkulačku
 """
 
-#TODO: OUTPUT CHECK, HELP(Nápověda)
+#TODO: OUTPUT CHECK, HELP Button
 
-from tkinter import *
-from expression_to_num import MathSolver
+from tkinter import * #gui
+from expression_to_num import MathSolver #řešení výrazů
+
+import subprocess, os, platform #pro otevření nápovědy
 
 ########################################################
 #PARAMS
@@ -17,6 +19,7 @@ buttonheight = 2
 bfcolor ="#202020"
 normalbuttoncolor = "#111111"
 normalfontcolor = "#ffffff"
+HelpFile = "help.pdf"
 ########################################################
 
 # BASIC SETUP
@@ -84,7 +87,17 @@ root.bind('<Return>', lambda event=None: EnterKey())
 
 #end of enter solution
 
-    
+
+#otevření nápovědy
+#
+def OpenHelp():
+    global HelpFile # soubor obashujici napovedu
+    if platform.system() == 'Darwin':       # macOS
+        subprocess.call(('open', HelpFile))
+    elif platform.system() == 'Windows':    # Windows
+        os.startfile(HelpFile)
+    else:                                   # linux variants
+        subprocess.call(('xdg-open', HelpFile))
 
     
 # přiřazení funkcí tlačítkam
