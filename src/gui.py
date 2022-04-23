@@ -5,9 +5,9 @@ Projekt:    IVS #2 - Tvorba kalkulačky
 Popis:      Grafické rozhraní pro kalkulačku
 """
 
-#TODO: OUTPUT CHECK, HELP Button
+#TODO: OUTPUT CHECK, FIX HELP 
 
-from tkinter import * #gui
+from tkinter import *
 from expression_to_num import MathSolver #řešení výrazů
 
 import subprocess, os, platform #pro otevření nápovědy
@@ -35,6 +35,8 @@ root.tk.call('tk', 'scaling', 2.0)
 #OKNO TEXTU
 TextDisplay = Text(root, fg=normalfontcolor,bg=bfcolor,insertbackground=normalfontcolor)#height='4'
 # pruhy pro tlačítka
+menu = PanedWindow(bg=normalbuttoncolor)
+
 window0 = PanedWindow(bg=bfcolor)
 window1 = PanedWindow(bg=bfcolor)
 window2 = PanedWindow(bg=bfcolor)
@@ -101,6 +103,9 @@ def OpenHelp():
 
     
 # přiřazení funkcí tlačítkam
+helpbutton = Button(menu,font=("Comicsans", 6), text="Help", width=4,height=1, borderwidth='0',bg=normalbuttoncolor,fg=normalfontcolor, command=lambda: OpenHelp())  #1 cislo = 8 px 3 buttony : 3*8 = 24, celkem/24 = 100/24=4 
+
+
 b00 = Button(window0, text="0", width=buttonwidth,height=buttonheight, borderwidth='0',bg=normalbuttoncolor,fg=normalfontcolor, command=lambda: insert(0))  #1 cislo = 8 px 3 buttony : 3*8 = 24, celkem/24 = 100/24=4 
 b01 = Button(window0, text=".", width=buttonwidth,height=buttonheight, borderwidth='0',bg=normalbuttoncolor,fg=normalfontcolor, command=lambda: insert("."))
 b02 = Button(window0, text="(", width=buttonwidth,height=buttonheight, borderwidth='0',bg=normalbuttoncolor,fg=normalfontcolor, command=lambda: insert("("))
@@ -132,6 +137,12 @@ b43 = Button(window4, text="root(x,y)", width=buttonwidth,height=buttonheight, b
 b44 = Button(window4, text=",", width=buttonwidth,height=buttonheight, borderwidth='0',         bg=normalbuttoncolor,fg=normalfontcolor,command=lambda: insert(","))
 
 # okna pack
+menu.pack(
+    side=TOP,
+    anchor=NW,
+    fill=X
+        )
+
 window0.pack(
     side=BOTTOM,
     fill=X
@@ -160,6 +171,7 @@ TextDisplay.pack(
 )
 
 # přiřazení tlačítek do pruhů
+menu.add(helpbutton)
 
 window0.add(b00)
 window0.add(b01)
