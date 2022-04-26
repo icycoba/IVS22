@@ -22,6 +22,8 @@ def isnum(var):
     :param var: testovaná proměnná
     :return: boolova hodnota výroku, že proměnná je číslo
     """
+    if isinstance(var,bool):
+        return 0
     if( isinstance(var, int)  or isinstance(var, float)  ):
         return 1
     return 0
@@ -64,8 +66,12 @@ class MathOperations:
         """
         if not(isnum(self.ans) and isnum(num)):
             raise TypeError()
-    
-        self.ans = self.ans+num
+        #exception to handle float limits
+        try:
+            self.ans = self.ans+num
+        except OverflowError:
+            self.ans = int(self.ans)+int(num)
+
         return self.ans
 
 
@@ -79,8 +85,14 @@ class MathOperations:
         :return: funkce vraci hodnotu ans po odecteni hodnoty num
         """
         if not(isnum(self.ans) and isnum(num)):
-            raise TypeError()
-        self.ans = self.ans-num
+            raise TypeError()       
+        
+        #exception to handle float limits
+        try:
+            self.ans = self.ans-num
+        except OverflowError:
+            self.ans = int(self.ans)-int(num)
+
         return self.ans
 
 
@@ -94,8 +106,12 @@ class MathOperations:
         :return: funkce vraci hodnotu ans po vynasobeni hodnotou num
         """
         if not(isnum(self.ans) and isnum(num)):
-            raise TypeError()
-        self.ans = self.ans*num
+            raise TypeError()    
+        #exception to handle float limits
+        try:
+            self.ans = self.ans*num
+        except OverflowError:
+            self.ans = int(self.ans)*int(num)
         return self.ans
 
     def div(self, num):
@@ -111,7 +127,14 @@ class MathOperations:
                raise TypeError()
         if num == 0 or num == -0 :
              raise ZeroDivisionError()
-        self.ans = self.ans/num
+        #exception to handle float limits
+        try:
+            self.ans = self.ans/num
+        except OverflowError:
+            if int(num)==0:
+                raise ZeroDivisionError()
+            self.ans = int(self.ans)/int(num)
+
         return self.ans
 
     def factorial(self):
@@ -155,11 +178,12 @@ class MathOperations:
         if num<0 or (not isinstance(num, int)): #ERROR if num is nonnatural number
             raise ValueError()
 
-        result = 1
-        while num > 0:
-            result *= self.ans
-            num-=1
-        self.ans = round(result,ROUNDED_TO)
+        #exception to handle float limit
+        try:
+            self.ans = self.ans**num
+        except OverflowError:   
+            self.ans = int(self.ans)**int(num)
+
         return self.ans
 
 
@@ -173,25 +197,41 @@ class MathOperations:
         :param num: hodnota, kterou se bude odmocnovat
         :return: funkce vraci hodnotu ans po odmocneni hodnotou num
         """
-#        if not(isnum(self.ans) and isnum(num)):
-#            raise TypeError()
-#
-#        if (num%2 == 0 and self.ans<0 ) or (not isinstance(num, int)) or num<0:
-#            raise ValueError()
-#
- #       tmp = self.ans
- #       x1 = 0
- #       x2 = (num-1)/num*x1+tmp/(num*pow(tmp,num-1))
- #       tmp=num-1
- #       x1 = x2
- #       x2 = (num-1)/num*x1+tmp/(num*pow(tmp,num-1))
- #       tmp=num-1
-#
-   #     while(abs(x1-x2)<EPSILON):
-   #         x1 = x2
-   #         x2 = (num-1)/num*x1+tmp/(num*pow(tmp,num-1))
-   #         tmp=num-1
-   #     self.ans = round(x2,ROUNDED_TO)
+        if not(isnum(self.ans) and isnum(num)):
+            raise TypeError()
+
+        if (num%2 == 0 and self.ans<0 ) or (not isinstance(num, int)) :
+            #(or num<0)
+            raise ValueError()
+
+        if((self.ans==0 and num < 0) or num==0):
+            raise ZeroDivisionError()
+
+        negative = False
+        if num < 0:
+            negative = True
+            num = -num
+
+        if self.ans > 0:
+            bot = 0
+            top = self.ans
+        else:
+            bot = self.ans
+            top = 0
+
+        result = self.ans
+        while abs(result**num - self.ans) > EPSILON:
+            if result**num > self.ans:
+                top = result
+            else:
+                bot = result
+            result = (bot+top)/2
+            
+        if negative and result != 0:
+            result = 1/result
+
+
+        self.ans = round(result,ROUNDED_TO)
         return self.ans
 
 
