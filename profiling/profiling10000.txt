@@ -1,0 +1,18 @@
+         270389 function calls in 0.534 seconds
+
+   Ordered by: internal time
+   List reduced from 34 to 10 due to restriction <10>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+    70022    0.200    0.000    0.331    0.000 mathlib.py:19(isnum)
+   150063    0.140    0.000    0.140    0.000 {built-in method builtins.isinstance}
+    20001    0.063    0.000    0.253    0.000 mathlib.py:58(add)
+        1    0.046    0.046    0.394    0.394 profiling.py:26(deviationsum)
+    10001    0.043    0.000    0.146    0.000 mathlib.py:166(pow)
+    10006    0.020    0.000    0.067    0.000 mathlib.py:40(__init__)
+        1    0.011    0.011    0.140    0.140 profiling.py:17(mean)
+    10003    0.010    0.000    0.010    0.000 mathlib.py:50(getvalue)
+        2    0.000    0.000    0.000    0.000 expression_to_num.py:170(rfunc)
+       95    0.000    0.000    0.000    0.000 {built-in method builtins.len}
+
+

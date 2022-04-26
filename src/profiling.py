@@ -6,8 +6,12 @@ Projekt:    IVS #2 - Tvorba kalkulačky
 Popis:      Program pro výpočet výběrové směrodatné odchylky
 """
 
-from expression_to_num import MathSolver, MathOperations
 import sys
+# import cProfile
+# import pstats
+
+from pstats import SortKey
+from expression_to_num import MathSolver, MathOperations
 
 
 def mean(narray):
@@ -46,6 +50,7 @@ def deviation(narray):
 
 
 if __name__ == "__main__":
+    # profiler = cProfile.Profile()
     try:
         numarray = sys.stdin.read()
     except FileNotFoundError:
@@ -61,7 +66,9 @@ if __name__ == "__main__":
         print("ValueError: Jedna z hodnot nelze převést na číslo.", file=sys.stderr)
         exit(1)
 
+    # profiler.run('deviation(numarray)')
+    # p = pstats.Stats(profiler)
+    # p.strip_dirs().sort_stats(SortKey.TIME).print_stats(10)
+
     s = deviation(numarray)
     print(s)
-
-# ...
