@@ -29,6 +29,7 @@ root.geometry('450x500')
 root.resizable(False, False)
 root.title('Kalkulačka')
 
+calculator = MathSolver() #Global variable for calculations
 #literally magic
 root.tk.call('tk', 'scaling', 2.0)
 
@@ -64,21 +65,34 @@ def AllClear():
     TextDisplay.delete('1.0', END)
 
 #solves expression
-calculator = MathSolver()
+def CalcError():
+    TextDisplay.delete('1.0', END)
+    TextDisplay.insert(END, "CALCULATION ERROR")
+    global TextState
+    TextState = -1
+
+
 def solve():
     input = TextDisplay.get("1.0",END)
     try:
         calculator.solve(input)
         TextDisplay.delete('1.0', END)
-        TextDisplay.insert(END, calculator.ans)
-        TextDisplay.delete('end-1c', 'end')
 
-
+        calculator
     except Exception:
-        TextDisplay.delete('1.0', END)
-        TextDisplay.insert(END, "CALCULATION ERROR")
-        global TextState
-        TextState = -1
+        CalcError()
+        return
+    try:
+        output = float(calculator.ans)
+    except:
+        CalcError()
+        return
+    if output%1 == 0: #is integer
+        insert(int(output))
+    else:
+        insert(round(output,5))
+    
+
 
 
 #ADDS ENTER as key for solve
