@@ -218,5 +218,5 @@ class MathOperations:
         self.ans = round(result,ROUNDED_TO)
         return self.ans
 
-
-
+    def solve(self, expression):
+        pass
