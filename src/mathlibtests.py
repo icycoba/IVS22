@@ -7,7 +7,7 @@ Popis:      Testy pro tvorbu matematické knihovny
 """
 
 
-from mathlib import MathOperations
+from expression_to_num import MathOperations, MathSolver
 import unittest
 
 validkeys = [1, -1, 3.5, -6.2, 2e5, -6e7, 2e-3, 0, -0, 1+1, 3-5, 1*5, 52/5]
@@ -243,59 +243,53 @@ class TestAdvancedMathOperations(unittest.TestCase):
 
 class TestStringExpressionsMathOperations(unittest.TestCase):
     def test_string_expression_1(self):
-        calculator = MathOperations()
-        self.assertEqual(calculator.getvalue(), 0)
-        self.assertEqual(calculator.solve("1+1"), 2)
-        self.assertEqual(calculator.solve("3-1"), 2)
-        self.assertEqual(calculator.solve("4/2"), 2)
-        self.assertEqual(calculator.solve("2*1"), 2)
+        calculator = MathSolver()
+        self.assertEqual(float(calculator.solve("1+1")), 2)
+        self.assertEqual(float(calculator.solve("3-1")), 2)
+        self.assertEqual(float(calculator.solve("4/2")), 2)
+        self.assertEqual(float(calculator.solve("2*1")), 2)
 
     def test_string_expression_2(self):
-        calculator = MathOperations()
-        self.assertEqual(calculator.getvalue(), 0)
-        self.assertEqual(calculator.solve("1+(-3)"), -2)
-        self.assertEqual(calculator.solve("4-(-5)"), 9)
-        self.assertEqual(calculator.solve("32/(8/4)"), 16)
-        self.assertEqual(calculator.solve("(32/8)/4"), 1)
-        self.assertEqual(calculator.solve("1*2*4*8"), 64)
+        calculator = MathSolver()
+        self.assertEqual(float(calculator.solve("1+(-3)")), -2)
+        self.assertEqual(float(calculator.solve("4-(-5)")), 9)
+        self.assertEqual(float(calculator.solve("32/(8/4)")), 16)
+        self.assertEqual(float(calculator.solve("(32/8)/4")), 1)
+        self.assertEqual(float(calculator.solve("1*2*4*8")), 64)
 
     def test_string_expression_3(self):
-        calculator = MathOperations()
-        self.assertEqual(calculator.getvalue(), 0)
-        self.assertEqual(calculator.solve("root(4,2)"), 2)
-        self.assertEqual(calculator.solve("fact(7)"), 5040)
-        self.assertEqual(calculator.solve("pow(2,3)"), 8)
-        self.assertEqual(calculator.solve("7!"), 5040)
-        self.assertEqual(calculator.solve("3^2"), 9)
-        self.assertEqual(calculator.solve("1+2*3"), 7)
+        calculator = MathSolver()
+        self.assertEqual(float(calculator.solve("root(4,2)")), 2)
+        self.assertEqual(float(calculator.solve("fact(7)")), 5040)
+        self.assertEqual(float(calculator.solve("pow(2,3)")), 8)
+        self.assertEqual(float(calculator.solve("7!")), 5040)
+        self.assertEqual(float(calculator.solve("3^2")), 9)
+        self.assertEqual(float(calculator.solve("1+2*3")), 7)
 
     def test_string_expression_4(self):
-        calculator = MathOperations()
-        self.assertEqual(calculator.getvalue(), 0)
-        self.assertEqual(calculator.solve("((16-4)*2)/8"), 3)
-        self.assertEqual(calculator.solve("((1+3)/(5-4))*(2/2)!"), 24)
-        self.assertEqual(calculator.solve("root((2*36)/(3*3), 3)"), 2)
-        self.assertEqual(calculator.solve("pow((2^2-2*8+3*11)/(5!-30*root(4,2)/2)*1/2-8,2)"), 49)
+        calculator = MathSolver()
+        self.assertEqual(float(calculator.solve("((16-4)*2)/8")), 3)
+        self.assertEqual(float(calculator.solve("((1+3)/(5-4))*(2/2)!")), 24)
+        self.assertEqual(float(calculator.solve("root((2*36)/(3*3), 3)")), 2)
+        self.assertEqual(float(calculator.solve("pow((2^2-2*8+3*11)/(5!-30*root(4,2)/2)*1/2-8,2)")), 49)
 
     def test_string_expression_5(self):
-        calculator = MathOperations()
-        self.assertEqual(calculator.getvalue(), 0)
-        self.assertEqual(calculator.solve("   r  o   o     t          (4      ,      2)"), 2)
-        self.assertEqual(calculator.solve("f     act(   7   )"), 5040)
-        self.assertEqual(calculator.solve("pow(    2  ,    3)"), 8)
-        self.assertEqual(calculator.solve("7               !                          "), 5040)
-        self.assertEqual(calculator.solve("3           ^2"), 9)
-        self.assertEqual(calculator.solve("1+2                                        *3"), 7)
+        calculator = MathSolver()
+        self.assertEqual(float(calculator.solve("   r  o   o     t          (4      ,      2)")), 2)
+        self.assertEqual(float(calculator.solve("f     act(   7   )")), 5040)
+        self.assertEqual(float(calculator.solve("pow(    2  ,    3)")), 8)
+        self.assertEqual(float(calculator.solve("7               !                          ")), 5040)
+        self.assertEqual(float(calculator.solve("3           ^2")), 9)
+        self.assertEqual(float(calculator.solve("1+2                                        *3")), 7)
 
     def test_string_expression_6(self):
-        calculator = MathOperations()
-        self.assertEqual(calculator.getvalue(), 0)
-        self.assertEqual(calculator.solve("2e3"), 2000)
-        self.assertEqual(calculator.solve("0"), 0)
-        self.assertEqual(calculator.solve("0^0"), 1)
-        self.assertEqual(calculator.solve("0!"), 1)
-        self.assertEqual(calculator.solve("root(0,2)"), 0)
-        self.assertEqual(calculator.solve("3*4*5*0"), 0)
+        calculator = MathSolver()
+        self.assertEqual(float(calculator.solve("2e3")), 2000)
+        self.assertEqual(float(calculator.solve("0")), 0)
+        self.assertEqual(float(calculator.solve("0^0")), 1)
+        self.assertEqual(float(calculator.solve("0!")), 1)
+        self.assertEqual(float(calculator.solve("root(0,2)")), 0)
+        self.assertEqual(float(calculator.solve("3*4*5*0")), 0)
         with self.assertRaises(ZeroDivisionError):
             calculator.solve("(1+2+3)/(3-2-1)")
         with self.assertRaises(ZeroDivisionError):

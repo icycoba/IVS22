@@ -10,7 +10,6 @@ import sys
 # import cProfile
 # import pstats
 
-from pstats import SortKey
 from expression_to_num import MathSolver, MathOperations
 
 
