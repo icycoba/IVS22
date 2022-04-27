@@ -374,39 +374,6 @@ def rmuldiv(myexpression):
                 result = str(calculator.div(strtonum(returny["y"])))
 
             return_num = returnx["before"] + result + returny["after"]            
-#            endposition = 0
-#            startposition = 0
-#            xend = 0
-#            yend = 0
-#            
-#            x=""
-#            for idx2, j in enumerate(reversed(myexpression[:idx1])):
-#                startposition = idx1-idx2
-#                if ((not j.isdigit()) and j != "."):
-#                    xend = 1
-#                    break
-#                x+=j
-#            x = x[::-1]
-#
-#            y=""
-#            for idx2, j in enumerate((myexpression[idx1+1:])):
-#                endposition = idx1+idx2+1
-#                if ((not j.isdigit()) and j != "."):
-#                    yend = 1
-#                    break
-#                y+=j
-#
-#            if i == "*":
-#                result = str(strtonum(x)*strtonum(y))
-#            else:
-#                result = str(strtonum(x)/strtonum(y))
-#
-#            return_num = ""
-#            if xend:
-#                return_num += myexpression[0:startposition]
-#            return_num += result
-#            if yend:
-#                return_num += myexpression[endposition:]            
             
             leave = 1
             break
@@ -447,25 +414,6 @@ def raddsub(myexpression):
                 result = str(calculator.sub(strtonum(returny["y"])))
             #return value
             return_num = result  + returny["after"]
-
-
-#///////////////            for idx2, j in enumerate((myexpression[idx1+1:])):
-#///////////////                endposition = idx1+idx2+1
-#///////////////                if ((not j.isdigit()) and j != "."):
-#///////////////                    endstyle = 1
-#///////////////                    break
-#///////////////                y+=j
-#///////////////            #choose operation
-#///////////////            if i == "+":
-#///////////////                result = str(strtonum(x)+strtonum(y))
-#///////////////            else:
-#///////////////                result = str(strtonum(x)-strtonum(y))
-#///////////////            #return value
-#///////////////            if endstyle:
-#///////////////                return_num = result  + myexpression[endposition:]
-#///////////////            else:
-#///////////////                return_num = result
-            
             
             leave = 1
             break
@@ -526,7 +474,7 @@ def exprtonum (expression):
 
 class MathSolver:
     """Třída sloužící pro řešení matematických výrazů"""
-    #
+    
     # podpopruje:
     # 1) "+x" "-x"
     # 2) "x+y" "x-y"

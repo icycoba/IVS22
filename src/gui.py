@@ -5,15 +5,13 @@ Projekt:    IVS #2 - Tvorba kalkulačky
 Popis:      Grafické rozhraní pro kalkulačku
 """
 
-#TODO: OUTPUT CHECK, FIX HELP 
-
-from tkinter import *
+from tkinter import * #grafické rozhraní
 from expression_to_num import MathSolver #řešení výrazů
 
 import subprocess, os, platform #pro otevření nápovědy
 
 ########################################################
-#PARAMS
+#parametry pro grafické rozhraní
 buttonwidth = 8
 buttonheight = 2
 bfcolor ="#202020"
@@ -22,14 +20,15 @@ normalfontcolor = "#ffffff"
 HelpFile = "help.pdf"
 ########################################################
 
-# BASIC SETUP
+# základní setup pro kalkulačku
 root = Tk()
 root['bg'] = bfcolor
 root.geometry('450x500')
 root.resizable(False, False)
 root.title('Kalkulačka')
 
-calculator = MathSolver() #Global variable for calculations
+#inicializace globální proměnné pro počítání
+calculator = MathSolver() 
 #literally magic
 root.tk.call('tk', 'scaling', 2.0)
 
@@ -71,7 +70,9 @@ def CalcError():
     global TextState
     TextState = -1
 
-
+"""
+Funkce solve vyřeší výraz v textovém poli.
+"""
 def solve():
     input = TextDisplay.get("1.0",END)
     try:
@@ -95,7 +96,9 @@ def solve():
 
 
 
-#ADDS ENTER as key for solve
+"""
+přidává klávesu ENTER jako další variantu pro spuštění vyřešení výrazu
+"""
 def EnterKey():
     TextDisplay.delete('end-1c', 'end')
     solve()
@@ -104,8 +107,9 @@ root.bind('<Return>', lambda event=None: EnterKey())
 #end of enter solution
 
 
-#otevření nápovědy
-#
+"""
+Funkce pro otevření nápovědy
+"""
 def OpenHelp():
     global HelpFile # soubor obashujici napovedu
     if platform.system() == 'Darwin':       # macOS
@@ -116,10 +120,10 @@ def OpenHelp():
         subprocess.call(('xdg-open', HelpFile))
 
     
-# přiřazení funkcí tlačítkam
+# tlačítko pro otevření nápovědy
 helpbutton = Button(menu,font=("Comicsans", 6), text="Help", width=4,height=1, borderwidth='0',bg=normalbuttoncolor,fg=normalfontcolor, command=lambda: OpenHelp())  #1 cislo = 8 px 3 buttony : 3*8 = 24, celkem/24 = 100/24=4 
 
-
+# tlačítka pro vstup
 b00 = Button(window0, text="0", width=buttonwidth,height=buttonheight, borderwidth='0',bg=normalbuttoncolor,fg=normalfontcolor, command=lambda: insert(0))  #1 cislo = 8 px 3 buttony : 3*8 = 24, celkem/24 = 100/24=4 
 b01 = Button(window0, text=".", width=buttonwidth,height=buttonheight, borderwidth='0',bg=normalbuttoncolor,fg=normalfontcolor, command=lambda: insert("."))
 b02 = Button(window0, text="(", width=buttonwidth,height=buttonheight, borderwidth='0',bg=normalbuttoncolor,fg=normalfontcolor, command=lambda: insert("("))
@@ -217,5 +221,5 @@ window4.add(b42)
 window4.add(b43)
 window4.add(b44)
 
-
+#hlavní smyčka
 root.mainloop()
