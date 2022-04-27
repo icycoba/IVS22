@@ -193,6 +193,7 @@ class MathOperations:
         Odmocneni promenne ans hodnotou num
 
         ans = ans^(1/num)
+        implementace metodou bisekce
 
         :param num: hodnota, kterou se bude odmocnovat
         :return: funkce vraci hodnotu ans po odmocneni hodnotou num
@@ -212,12 +213,22 @@ class MathOperations:
             negative = True
             num = -num
 
-        if self.ans > 0:
-            bot = 0
-            top = self.ans
+        #kontroluje zda výsledek je menší jak self.ans -> pokud ano, musí platit : abs(self.ans)>1.0
+        #resp. určuje jakým směrem bude výsledek konvergovat, jestli od self.ans k nule nebo od self.ans k +-nekonečnu  
+        if abs(self.ans)>1.0: 
+            if self.ans > 0:
+                bot = 0
+                top = self.ans
+            else:
+                bot = self.ans
+                top = 0
         else:
-            bot = self.ans
-            top = 0
+            if self.ans > 0:
+                bot = 0
+                top = 1
+            else:
+                bot = -1
+                top = 0
 
         result = self.ans
         while abs(result**num - self.ans) > EPSILON:
