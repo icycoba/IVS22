@@ -1,8 +1,9 @@
 """
-Soubor:     gui.py
-Autor:      xxx
-Projekt:    IVS #2 - Tvorba kalkulačky
-Popis:      Grafické rozhraní pro kalkulačku
+:Soubor:     gui.py
+:Autor:      - Štěpán Nekula (xnekul04)
+             - Jan Kundrata (xkundr07)
+:Projekt:    IVS #2 - Tvorba kalkulačky
+:Popis:      Grafické rozhraní pro kalkulačku
 """
 
 from tkinter import * #grafické rozhraní
@@ -18,14 +19,16 @@ bfcolor ="#202020"
 normalbuttoncolor = "#111111"
 normalfontcolor = "#ffffff"
 HelpFile = "help.pdf"
+resolution = '450x500'
+title = 'Kalkulačka'
 ########################################################
 
 # základní setup pro kalkulačku
 root = Tk()
 root['bg'] = bfcolor
-root.geometry('450x500')
+root.geometry(resolution)
 root.resizable(False, False)
-root.title('Kalkulačka')
+root.title(title)
 
 #inicializace globální proměnné pro počítání
 calculator = MathSolver() 
