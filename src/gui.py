@@ -114,13 +114,7 @@ root.bind('<Return>', lambda event=None: EnterKey())
 Funkce pro otevření nápovědy
 """
 def OpenHelp():
-    global HelpFile # soubor obashujici napovedu
-    if platform.system() == 'Darwin':       # macOS
-        subprocess.call(('open', HelpFile))
-    elif platform.system() == 'Windows':    # Windows
-        os.startfile(HelpFile)
-    else:                                   # linux variants
-        subprocess.call(('xdg-open', HelpFile))
+    os.startfile(os.path.dirname(os.path.realpath(__file__))+ "\\" + HelpFile)
 
     
 # tlačítko pro otevření nápovědy
