@@ -67,6 +67,19 @@ def root (x,num):
     calculator = MathOperations(strtonum(x))
     return calculator.root(strtonum(num))
 
+def simpnum(num):
+    """
+    Celočíselný float přetypuje na int.
+    """
+    simp = round(float(num),7)
+
+    if simp%1 == 0: #is integer
+        simp = (int(simp))
+        return str(simp)
+    return
+
+
+
 def usefunc(func,expression):
     """
     Funkce zavolá funkci na základě prvního parametru a jako parametr/y ji předá expression rozdělený oddělovačem ","
@@ -78,14 +91,14 @@ def usefunc(func,expression):
 
 
     if func == "fact":
-        expression = fact(strtonum(expression))
+        expression = fact(strtonum(simpnum(expression)))
     elif func == "pow":
         funcargs = expression.split(",")
-        expression = pow(strtonum(funcargs[0]),strtonum(funcargs[1]))
+        expression = pow(strtonum(simpnum(funcargs[0])),strtonum(simpnum(funcargs[1])))
         pass
     elif func == "root":
         funcargs = expression.split(",")
-        expression = root(strtonum(funcargs[0]),strtonum(funcargs[1]))
+        expression = root(strtonum(simpnum(funcargs[0])),strtonum(simpnum(funcargs[1])))
         pass
     elif func == "sin":
         expression = mysin(strtonum(expression))
