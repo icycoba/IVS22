@@ -14,6 +14,8 @@ validkeys = [1, -1, 3.5, -6.2, 2e5, -6e7, 2e-3, 0, -0, 1+1, 3-5, 1*5, 52/5]
 validkeysdiv = [1, -1, 3.5, -6.2, 2e5, -6e7, 2e-3, 1+1, 3-5, 1*5, 52/5]
 validkeyspow = [1, 5-3, 3, 4, 5, -3+6, 7, 8, 9, 10, 100, 0, 5]
 invalidkeyspow = [1.1, -1, -5.5, 13/3, 4/2, 1/2, 0.00001]
+validkeysroot = [1, 3, 5, 8, 20, 100]
+validkeysroot2 = [-1, -5, -100, -3, 3, 2, 5+2]
 invalidkeys = ['1', '-1', '0', 'asd', '10asd', True, False, [1, 3, 5], (3, 4, 5), {1, 3, 5}, {"number": 1, "next": 4}]
 invalidkeys2 = [3j, range(6), frozenset({1, 3, 5}), b"byteString", bytearray(5), memoryview(bytes(5))]
 
@@ -214,31 +216,24 @@ class TestBasicMathOperations(unittest.TestCase):
                 calculator.pow(key)
 
     def test_root_1(self):
-        results = [0] * len(validkeys)
-        zippedkeys = zip(validkeys, results)
+        results = [0] * len(validkeysroot)
+        zippedkeys = zip(validkeysroot, results)
         calculator = MathOperations()
         self.assertEqual(calculator.getvalue(), 0)
         for key, result in zippedkeys:
             self.assertEqual(calculator.root(key), result)
 
     def test_root_2(self):
-        results = [2] * len(validkeysdiv)
-        for i, _ in enumerate(validkeysdiv):
-            if i == 0:
-                results[i] = results[i] ** (1 / validkeysdiv[i])
-            else:
-                results[i] = results[i-1] ** (1 / validkeysdiv[i])
-        zippedkeys = zip(validkeysdiv, results)
+        results = [2] * len(validkeysroot2)
         calculator = MathOperations(2)
-        self.assertEqual(calculator.getvalue(), 2)
+        for i, _ in enumerate(validkeysroot2):
+            if i == 0:
+                results[i] = results[i] ** (1/validkeysroot2[i])
+            else:
+                results[i] = results[i-1] ** (1/validkeysroot2[i])
+        zippedkeys = zip(validkeysroot2, results)
         for key, result in zippedkeys:
-            self.assertEqual(calculator.root(key), result)
-        with self.assertRaises(ZeroDivisionError):
-            calculator.root(0)
-
-
-class TestAdvancedMathOperations(unittest.TestCase):
-    pass
+            self.assertAlmostEqual(calculator.root(key), result, 4)
 
 
 class TestStringExpressionsMathOperations(unittest.TestCase):
