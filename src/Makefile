@@ -5,15 +5,22 @@
 
 all: run
 
-pack: doc
-	mkdir -p ../../xhlins01_xdudov02_xkundr07_xnekul04/repo
+pack: clean doc
+	mkdir ../../xhlins01_xdudov02_xkundr07_xnekul04
+	mkdir ../../xhlins01_xdudov02_xkundr07_xnekul04/repo
 	mkdir ../../xhlins01_xdudov02_xkundr07_xnekul04/install
 	mkdir ../../xhlins01_xdudov02_xkundr07_xnekul04/doc
-	cp -a ../. ../../xhlins01_xdudov02_xkundr07_xnekul04/repo
+	rsync -a ../. ../../xhlins01_xdudov02_xkundr07_xnekul04/repo --exclude ../doc --exclude ../install
+	rsync -a ../doc ../../xhlins01_xdudov02_xkundr07_xnekul04/install
+	rsync -a ../doc ../../xhlins01_xdudov02_xkundr07_xnekul04/doc
+	cd ../.. && zip -r xhlins01_xdudov02_xkundr07_xnekul04.zip xhlins01_xdudov02_xkundr07_xnekul04
 
 
 clean:
-	rm -rf ../../xhlins01_xdudov02_xkundr07_xnekul04/
+	rm -rf ../../xhlins01_xdudov02_xkundr07_xnekul04
+	rm -rf ../../xhlins01_xdudov02_xkundr07_xnekul04.zip
+	rm -rf ./html
+	rm -rf ./latex
 
 test: mathlibtests.py
 	python3 $^
@@ -21,7 +28,6 @@ test: mathlibtests.py
 doc: Doxyfile
 	rm -rf ../doc
 	mkdir ../doc && cd ../doc && doxygen ../src/$^
-
 
 run: gui.py
 	python3 $^

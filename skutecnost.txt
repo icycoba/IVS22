@@ -1,1 +1,48 @@
-tento soubor bude obsahovat rozdil mezi planem projektu a skutecnosti
+Plán projektu:
+
+1. Stanovené termíny
+
+1.1:    Založení komunikačních kanálů, repozitáře, přidělení úkolů členům týmu (14.03.2022)
+1.2:    Seznámení se s verzovacím systémem git (18.03.2022)
+1.3:    Tvorba testů pro matematickou knihovnu (03.04.2022)
+1.4:    Základní matematické operace (+,-,*,/) (10.04.2022)
+1.5:    Pokročilé matematické operace (faktoriál, umocňování s přirozenými exponenty, obecná odmocnina) (10.04.2022)
+1.6:    Implementace jedné další funkce (vymyslet jakou) (13.04.2022)
+1.7:    Návrh a propojení GUI s programovou částí (15.04.2022)
+1.8:    Profiling (20.04.2022)
+1.9:    Tvorba instalačního souboru (20.04.2022)
+1.10:   Debugging kalkulačky (24.4.2022)
+1.11:   Uživatelská dokumentace + návod na (od)instalaci (24.4.2022)
+1.12:   Mockup další verze kalkulačky (24.4.2022)
+
+2. Přidělení úkolů na projektu jednotlivým řešitelům
+
+xhlins01: (1.1, 1.2, 1.3, 1.7, 1.9, 1.10, 1.11)
+xdudov02: (1.2, 1.3, 1.4, 1.5, 1.10, 1.12)
+xkundr07: (1.2, 1.6, 1.7, 1.8, 1.10)
+xnekul04: (1.2, 1.4, 1.5, 1.6, 1.11)
+
+Skutečnost:
+
+1. Stanovené termíny
+
+1.1:    Založení komunikačních kanálů, repozitáře, přidělení úkolů členům týmu (14.03.2022)
+1.2:    Seznámení se s verzovacím systémem git (18.03.2022)
+1.3:    Tvorba testů pro matematickou knihovnu (03.04.2022)
+1.4:    Základní matematické operace (+,-,*,/) (10.04.2022)
+1.5:    Pokročilé matematické operace (faktoriál, umocňování s přirozenými exponenty, obecná odmocnina) (10.04.2022)
+1.6:    Implementace jedné další funkce (vymyslet jakou) (10.04.2022)
+1.7:    Návrh a propojení GUI s programovou částí (21.04.2022)
+1.8:    Profiling (26.04.2022)
+1.9:    Tvorba instalačního souboru (27.04.2022)
+1.10:   Debugging kalkulačky (26.4.2022)
+1.11:   Uživatelská dokumentace + návod na (od)instalaci (26.4.2022)
+1.12:   Mockup další verze kalkulačky (27.4.2022)
+1.13:   Makefile (27.4.2022)
+
+2. Přidělení úkolů na projektu jednotlivým řešitelům
+
+xhlins01: (1.1, 1.3, 1.8, 1.10, 1.13)
+xdudov02: (1.2)
+xkundr07: (1.2, 1.7, 1.9)
+xnekul04: (1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.10, 1.11, 1.12)
