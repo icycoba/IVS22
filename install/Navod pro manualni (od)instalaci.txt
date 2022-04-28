@@ -1,0 +1,63 @@
+Použijeme nástroj Anaconda Prompt, stáhnutelný zde:
+https://anaconda.org/conda-forge/prompt
+
+Poté pip, stáhnutelný zde:
+https://bootstrap.pypa.io/get-pip.py
+
+Poté použijeme příkaz:
+python get-pip.py
+ve složce, kam jsme pip get-pip stáhnuly.
+
+Je možné že se k tomu potřebuhe stáhnout python.
+python:
+https://www.python.org/downloads/
+
+Poté stáhneme pyinstaller, příkazem:
+pip install pyinstaller
+
+Poté v Anaconda prompt otevřeme složku, ve které máme soubory:
+gui.py
+expression_to_num.py
+mathlib.py
+calcico.ico
+
+a zadáme příkaz:
+pyinstaller --noconsole --onefile --icon calcico.ico gui.py
+
+To nám vytvoří novou složku dist, ve které najdeme
+skript převedený na exe soubor.
+
+
+Poté stáhneme nástroj na instalaci programů, Inno setup, ze stránky:
+https://jrsoftware.org/isdl.php
+
+V něm pak vytvoříme nový skript pomocí nápovědy.
+
+Postup:
+Zadáme informace o programu,
+
+V nabídce "Application Files"
+vybereme již vytvořený soubor gui.exe
+a do "other application files"
+přidáme soubory: 
+help.pdf
+README.md
+dokumentace.pdf
+
+v "Application Shortcuts"
+klikneme na Uninstall shortcut
+
+Dokumentace - přidáme Licenční soubor LICENCE
+
+změníme jazyk na Czech
+
+v compiler settings:
+A změníme jméno instalačního souboru z mysetup na kalkulacka_instalator-1.0.0-Win
+Také změníme output folder na místo, kde ho poté najdeme.
+
+Dokončíme a klikneme ano - kompilovat skript.
+
+Poté v programu F9 - spustit
+a tím se spustí instalační průvodce kalkulačky.
+
+Ten nainstaluje jak kalkulačku, tak odinstalátor.
