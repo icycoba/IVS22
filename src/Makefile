@@ -28,7 +28,8 @@ test: mathlibtests.py
 
 doc: Doxyfile
 	rm -rf ../doc
-	mkdir ../doc && cd ../doc && doxygen ../src/$^
+	mkdir ../doc
+	cd ../doc && doxygen ../src/$^
 
 run: gui.py
 	python3 $^
