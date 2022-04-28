@@ -11,7 +11,7 @@ pack: clean doc
 	mkdir ../../xhlins01_xdudov02_xkundr07_xnekul04/install
 	mkdir ../../xhlins01_xdudov02_xkundr07_xnekul04/doc
 	rsync -a ../. ../../xhlins01_xdudov02_xkundr07_xnekul04/repo --exclude ../doc --exclude ../install
-	rsync -a ../doc ../../xhlins01_xdudov02_xkundr07_xnekul04/install
+	rsync -a ../install ../../xhlins01_xdudov02_xkundr07_xnekul04/install
 	rsync -a ../doc ../../xhlins01_xdudov02_xkundr07_xnekul04/doc
 	cd ../.. && zip -r xhlins01_xdudov02_xkundr07_xnekul04.zip xhlins01_xdudov02_xkundr07_xnekul04
 
