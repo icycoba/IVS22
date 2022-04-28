@@ -13,7 +13,7 @@ pack: clean doc
 	rsync -a --exclude='doc/' --exclude='install/' .. ../../xhlins01_xdudov02_xkundr07_xnekul04/repo
 	rsync -a ../install ../../xhlins01_xdudov02_xkundr07_xnekul04/
 	rsync -a ../doc ../../xhlins01_xdudov02_xkundr07_xnekul04/
-	cd ../.. && zip -r xhlins01_xdudov02_xkundr07_xnekul04.zip xhlins01_xdudov02_xkundr07_xnekul04
+	cd ../../xhlins01_xdudov02_xkundr07_xnekul04/ && zip -r ../xhlins01_xdudov02_xkundr07_xnekul04.zip ./repo ./install ./doc
 
 
 clean:
