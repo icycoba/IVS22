@@ -343,9 +343,9 @@ def altfunc(myexpression):
                 y+=j
 
             if i == "!":
-                result = str(fact(x))
+                result = str(fact(simpnum(x)))
             else:
-                result = str(mypow(x,y))
+                result = str(mypow(simpnum(x),simpnum(y)))
 
             return_num = ""
             if xend:
