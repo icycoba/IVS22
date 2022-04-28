@@ -16,4 +16,4 @@ Nazev tymu
 Licence
 -------
 
-Tento program je poskytovan...
+Tento program je poskytován pod licencí GNU GPL v.3
