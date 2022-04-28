@@ -21,6 +21,7 @@ clean:
 	rm -rf ../../xhlins01_xdudov02_xkundr07_xnekul04.zip
 	rm -rf ./html
 	rm -rf ./latex
+	rm -rf ./__pycache__
 
 test: mathlibtests.py
 	python3 $^
